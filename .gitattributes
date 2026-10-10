@@ -1,0 +1,46 @@
+﻿# Skyline — line ending normalisation
+# Ensure consistent LF in the repository; git handles CRLF conversion on Windows checkout.
+
+# Default: normalise everything to LF in the repo
+* text=auto eol=lf
+
+# Markdown — always LF
+*.md text eol=lf
+
+# TypeScript / JavaScript / JSON — always LF
+*.ts text eol=lf
+*.tsx text eol=lf
+*.js text eol=lf
+*.jsx text eol=lf
+*.json text eol=lf
+*.jsonc text eol=lf
+
+# CSS
+*.css text eol=lf
+
+# Prisma
+*.prisma text eol=lf
+
+# Shell scripts — always LF (important for Linux/Docker runtimes)
+*.sh text eol=lf
+
+# Config files
+*.yaml text eol=lf
+*.yml text eol=lf
+*.toml text eol=lf
+*.env.example text eol=lf
+.gitignore text eol=lf
+.gitattributes text eol=lf
+
+# Binary files — never diff/merge as text
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.eot binary
+*.zip binary

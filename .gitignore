@@ -1,0 +1,170 @@
+﻿# =============================================================================
+# Skyline Student Association — .gitignore
+# Generated: 2026-10-10 | Stack: Next.js + Local PostgreSQL + Prisma + Better Auth
+#
+# KEEP TRACKED (do not add these):
+#   .env.example          — placeholder template, no real secrets
+#   prisma/schema.prisma  — database schema
+#   prisma/migrations/**  — migration history
+#   prisma/seed.ts        — demo seed script
+#   package-lock.json     — lockfile (exact reproducible installs)
+#   docs/**               — all documentation
+#   brain.md, README.md, AGENTS.md
+#   .agents/rules/**      — project coding rules
+#   .agents/workflows/**  — project workflow definitions
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Dependencies
+# -----------------------------------------------------------------------------
+node_modules/
+.pnp
+.pnp.js
+.yarn/install-state.gz
+
+# -----------------------------------------------------------------------------
+# Next.js build output and cache
+# -----------------------------------------------------------------------------
+.next/
+out/
+build/
+dist/
+
+# Next.js telemetry
+.next-telemetry-disabled
+
+# Turbopack cache
+.turbo/
+
+# -----------------------------------------------------------------------------
+# Environment files — NEVER commit real secrets
+# .env.example is intentionally NOT listed here (keep it tracked)
+# -----------------------------------------------------------------------------
+.env
+.env.local
+.env.development
+.env.development.local
+.env.test
+.env.test.local
+.env.production
+.env.production.local
+.env.staging
+.env.*.local
+
+# -----------------------------------------------------------------------------
+# Private receipt uploads (server-managed; outside public/)
+# The uploads/ directory structure is gitignored but the directory itself
+# will be created by the app at runtime.
+# -----------------------------------------------------------------------------
+uploads/*
+!uploads/.gitignore
+
+# -----------------------------------------------------------------------------
+# Local PostgreSQL data directories
+# (if anyone runs postgres locally inside the project — avoid committing DB files)
+# -----------------------------------------------------------------------------
+pgdata/
+.pgdata/
+postgres-data/
+data/
+*.sql.bak
+
+# PostgreSQL socket files
+*.pid
+*.lock
+
+# -----------------------------------------------------------------------------
+# Logs
+# -----------------------------------------------------------------------------
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# -----------------------------------------------------------------------------
+# Prisma generated client (regenerated via `prisma generate`)
+# schema.prisma and migrations/ ARE tracked — only the generated output is not
+# -----------------------------------------------------------------------------
+# Uncomment the line below ONLY if you commit generated client — default is not to:
+# node_modules/.prisma/
+
+# -----------------------------------------------------------------------------
+# TypeScript build output
+# -----------------------------------------------------------------------------
+*.tsbuildinfo
+next-env.d.ts
+
+# -----------------------------------------------------------------------------
+# Testing
+# -----------------------------------------------------------------------------
+coverage/
+.nyc_output/
+playwright-report/
+test-results/
+playwright/.cache/
+
+# -----------------------------------------------------------------------------
+# OS and editor artifacts
+# -----------------------------------------------------------------------------
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+
+# Editor: VS Code (keep .vscode/settings.json if you want; ignore user-specific)
+.vscode/launch.json
+.vscode/tasks.json
+.vscode/*.code-workspace
+
+# Editor: JetBrains / WebStorm
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Editor: Vim / Neovim
+*.swp
+*.swo
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+Session.vim
+Sessionx.vim
+
+# Editor: Emacs
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+
+# -----------------------------------------------------------------------------
+# Miscellaneous
+# -----------------------------------------------------------------------------
+
+# Vercel / deployment platform artifacts
+.vercel
+.netlify
+
+# Debug
+.pnpm-store/
+
+# Storybook
+storybook-static/
+
+# Optional: ignore yarn.lock if using npm (we use npm, so package-lock.json is tracked)
+# yarn.lock
+

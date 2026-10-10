@@ -1,0 +1,4 @@
+﻿# Ignore all receipt files in this directory
+*
+# But track this file so git preserves the directory
+!.gitignore
