@@ -1,0 +1,480 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// -----------------------------------------------------------------------------
+// Better Auth Core Models
+// -----------------------------------------------------------------------------
+
+model User {
+  id            String    @id @default(cuid())
+  name          String
+  email         String    @unique
+  emailVerified Boolean   @default(false)
+  image         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  sessions       Session[]
+  accounts       Account[]
+  roles          Role[]
+  memberships    Membership[]
+  bookings       Booking[]
+  orders         Order[]
+  purchases      Purchase[]
+  claims         Claim[]           @relation("ClaimantUser")
+  reviewedClaims Claim[]           @relation("ReviewerUser")
+  receiptFiles   ReceiptFile[]
+  activityStaff  ActivityStaff[]
+  assignedTasks  Task[]
+  announcements  Announcement[]
+
+  @@map("users")
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  userId    String
+  token     String   @unique
+  expiresAt DateTime
+  ipAddress String?
+  userAgent String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model Account {
+  id                    String    @id @default(cuid())
+  userId                String
+  accountId             String
+  providerId            String
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("accounts")
+}
+
+model Verification {
+  id         String   @id @default(cuid())
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("verifications")
+}
+
+// -----------------------------------------------------------------------------
+// Administrative Roles (Decoupled from Student Membership Eligibility)
+// -----------------------------------------------------------------------------
+
+model Role {
+  id        String   @id @default(cuid())
+  userId    String
+  role      String   // 'officer' | 'treasurer'
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, role])
+  @@map("roles")
+}
+
+// -----------------------------------------------------------------------------
+// Membership Management
+// -----------------------------------------------------------------------------
+
+model MembershipPeriod {
+  id           String       @id @default(cuid())
+  academicYear String       @unique @default("2026-2027")
+  label        String       @default("Academic Year 2026-2027")
+  startsAt     DateTime
+  endsAt       DateTime
+  duesPaise    BigInt       @default(50000)
+  createdAt    DateTime     @default(now())
+
+  memberships Membership[]
+
+  @@map("membership_periods")
+}
+
+model Membership {
+  id        String   @id @default(cuid())
+  userId    String
+  periodId  String
+  status    String   @default("pending") // 'pending' | 'active' | 'cancelled'
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user     User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  period   MembershipPeriod @relation(fields: [periodId], references: [id], onDelete: Cascade)
+  purchase Purchase?
+
+  @@unique([userId, periodId])
+  @@map("memberships")
+}
+
+// -----------------------------------------------------------------------------
+// Purchases & Payment Transactions
+// -----------------------------------------------------------------------------
+
+model Purchase {
+  id           String   @id @default(cuid())
+  userId       String
+  membershipId String?  @unique
+  bookingId    String?  @unique
+  orderId      String?  @unique
+  amountPaise  BigInt   @default(0)
+  state        String   @default("pending") // 'pending' | 'confirmed' | 'failed' | 'expired' | 'cancelled'
+  pricingBasis String?  // 'regular' | 'active_member' | 'dues'
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  user            User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  membership      Membership?      @relation(fields: [membershipId], references: [id])
+  booking         Booking?         @relation(fields: [bookingId], references: [id])
+  order           Order?           @relation(fields: [orderId], references: [id])
+  paymentAttempts PaymentAttempt[]
+
+  @@map("purchases")
+}
+
+model PaymentAttempt {
+  id          String    @id @default(cuid())
+  purchaseId  String
+  provider    String    @default("demo")
+  providerRef String?
+  amountPaise BigInt
+  state       String    @default("pending") // 'pending' | 'confirmed' | 'failed'
+  confirmedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  purchase        Purchase        @relation(fields: [purchaseId], references: [id], onDelete: Cascade)
+  cashbookEntries CashbookEntry[]
+
+  @@map("payment_attempts")
+}
+
+// -----------------------------------------------------------------------------
+// Activities & Ticketing
+// -----------------------------------------------------------------------------
+
+model Activity {
+  id                String    @id @default(cuid())
+  kind              String    @default("event") // 'event' | 'workshop'
+  title             String
+  description       String?
+  venue             String?
+  startsAt          DateTime
+  endsAt            DateTime?
+  capacity          Int?
+  memberPricePaise  BigInt    @default(0)
+  regularPricePaise BigInt    @default(0)
+  published         Boolean   @default(true)
+  ticketed          Boolean   @default(true)
+  createdById       String?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  bookings           Booking[]
+  tasks              Task[]
+  staff              ActivityStaff[]
+  announcements      Announcement[]
+  claims             Claim[]
+  fundraiserReceipts FundraiserReceipt[]
+
+  @@map("activities")
+}
+
+model ActivityStaff {
+  id         String   @id @default(cuid())
+  activityId String
+  userId     String
+  capability String   // 'checkin' | 'volunteer'
+  createdAt  DateTime @default(now())
+
+  activity Activity @relation(fields: [activityId], references: [id], onDelete: Cascade)
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([activityId, userId, capability])
+  @@map("activity_staff")
+}
+
+model Booking {
+  id            String   @id @default(cuid())
+  activityId    String
+  userId        String
+  reservedUntil DateTime
+  status        String   @default("pending") // 'pending' | 'confirmed' | 'cancelled' | 'expired'
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  activity Activity  @relation(fields: [activityId], references: [id], onDelete: Cascade)
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  purchase Purchase?
+  ticket   Ticket?
+
+  @@map("bookings")
+}
+
+model Ticket {
+  id             String    @id @default(cuid())
+  bookingId      String    @unique
+  tokenHash      String    @unique
+  encryptedToken String
+  activityId     String?
+  isUsed         Boolean   @default(false)
+  checkedInAt    DateTime?
+  checkedInById  String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  booking Booking @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+
+  @@map("tickets")
+}
+
+// -----------------------------------------------------------------------------
+// Merchandise & Orders
+// -----------------------------------------------------------------------------
+
+model Product {
+  id                String    @id @default(cuid())
+  name              String
+  description       String?
+  imagePath         String?
+  active            Boolean   @default(true)
+  regularPricePaise BigInt    @default(0)
+  memberPricePaise  BigInt    @default(0)
+  createdById       String?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  variants Variant[]
+
+  @@map("products")
+}
+
+model Variant {
+  id            String   @id @default(cuid())
+  productId     String
+  size          String
+  color         String   @default("Default")
+  stockTotal    Int      @default(0)
+  stockReserved Int      @default(0)
+  stockSold     Int      @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  product    Product     @relation(fields: [productId], references: [id], onDelete: Cascade)
+  orderItems OrderItem[]
+
+  @@unique([productId, size, color])
+  @@map("variants")
+}
+
+model Order {
+  id            String   @id @default(cuid())
+  userId        String
+  reservedUntil DateTime
+  fulfilment    String   @default("pending") // 'pending' | 'fulfilled' | 'cancelled'
+  status        String   @default("reserved") // 'reserved' | 'paid' | 'fulfilled' | 'cancelled'
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  user     User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  purchase Purchase?
+  items    OrderItem[]
+
+  @@map("orders")
+}
+
+model OrderItem {
+  id             String   @id @default(cuid())
+  orderId        String
+  variantId      String
+  quantity       Int
+  unitPricePaise BigInt
+  createdAt      DateTime @default(now())
+
+  order   Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  variant Variant @relation(fields: [variantId], references: [id], onDelete: Cascade)
+
+  @@map("order_items")
+}
+
+// -----------------------------------------------------------------------------
+// Claims & Receipts
+// -----------------------------------------------------------------------------
+
+model Claim {
+  id          String    @id @default(cuid())
+  claimantId  String
+  activityId  String?
+  title       String    @default("Reimbursement Claim")
+  reason      String
+  amountPaise BigInt
+  status      String    @default("submitted") // 'submitted' | 'under_review' | 'approved' | 'rejected' | 'paid'
+  reviewerId  String?
+  reviewNote  String?
+  payoutRef   String?
+  paidAt      DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  claimant        User            @relation("ClaimantUser", fields: [claimantId], references: [id], onDelete: Cascade)
+  reviewer        User?           @relation("ReviewerUser", fields: [reviewerId], references: [id])
+  activity        Activity?       @relation(fields: [activityId], references: [id])
+  receiptFile     ReceiptFile?
+  cashbookEntries CashbookEntry[]
+
+  @@map("claims")
+}
+
+model ReceiptFile {
+  id          String   @id @default(cuid())
+  claimId     String   @unique
+  userId      String
+  storagePath String
+  mimeType    String
+  sizeBytes   Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  claim Claim @relation(fields: [claimId], references: [id], onDelete: Cascade)
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("receipt_files")
+}
+
+// -----------------------------------------------------------------------------
+// Finance Ledger & Cashbook
+// -----------------------------------------------------------------------------
+
+model FundraiserReceipt {
+  id           String   @id @default(cuid())
+  activityId   String
+  amountPaise  BigInt
+  reference    String   @unique
+  recordedById String
+  createdAt    DateTime @default(now())
+
+  activity        Activity        @relation(fields: [activityId], references: [id], onDelete: Cascade)
+  cashbookEntries CashbookEntry[]
+
+  @@map("fundraiser_receipts")
+}
+
+model CashbookEntry {
+  id                  String   @id @default(cuid())
+  direction           String   // 'INFLOW' | 'OUTFLOW'
+  category            String   // 'dues' | 'ticket' | 'merch' | 'fundraiser_cash' | 'claim_payout'
+  amountPaise         BigInt
+  paymentAttemptId    String?
+  claimId             String?
+  fundraiserReceiptId String?
+  recordedById        String?
+  occurredAt          DateTime @default(now())
+  createdAt           DateTime @default(now())
+
+  paymentAttempt    PaymentAttempt?    @relation(fields: [paymentAttemptId], references: [id])
+  claim             Claim?             @relation(fields: [claimId], references: [id])
+  fundraiserReceipt FundraiserReceipt? @relation(fields: [fundraiserReceiptId], references: [id])
+
+  @@map("cashbook_entries")
+}
+
+// -----------------------------------------------------------------------------
+// Governance, Tasks & Announcements
+// -----------------------------------------------------------------------------
+
+model ClubSettings {
+  id          String   @id @default(cuid())
+  name        String   @default("Skyline Student Association")
+  description String?
+  updatedAt   DateTime @updatedAt
+
+  @@map("club_settings")
+}
+
+model HandoverSnapshot {
+  id            String   @id @default(cuid())
+  generatedById String
+  snapshotJson  Json
+  notes         String?
+  schemaVersion Int      @default(1)
+  generatedAt   DateTime @default(now())
+  createdAt     DateTime @default(now())
+
+  @@map("handover_snapshots")
+}
+
+model Task {
+  id          String    @id @default(cuid())
+  activityId  String
+  title       String
+  description String?
+  assigneeId  String?
+  dueAt       DateTime?
+  status      String    @default("open") // 'open' | 'in_progress' | 'done' | 'cancelled'
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  activity Activity @relation(fields: [activityId], references: [id], onDelete: Cascade)
+  assignee User?    @relation(fields: [assigneeId], references: [id])
+
+  @@map("tasks")
+}
+
+model Announcement {
+  id          String    @id @default(cuid())
+  title       String
+  body        String
+  activityId  String?
+  audience    String    @default("public") // 'public' | 'members'
+  authorId    String
+  publishedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  author   User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  activity Activity? @relation(fields: [activityId], references: [id])
+
+  @@map("announcements")
+}
+
+model EmailJob {
+  id            String    @id @default(cuid())
+  recipientId   String
+  kind          String
+  sourceKey     String
+  state         String    @default("queued") // 'queued' | 'sent' | 'failed' | 'terminal'
+  attempts      Int       @default(0)
+  nextAttemptAt DateTime?
+  providerId    String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  @@unique([recipientId, kind, sourceKey])
+  @@map("email_jobs")
+}

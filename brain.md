@@ -15,11 +15,8 @@
 
 ## Current Phase
 
-**Phase:** Implementation Planning Complete — Ready for role selection
-**Status:** All planning docs created. Four-lane ownership defined. Integration contract published. No application code exists.
-
-> Each developer selects their role (see §"How to Resume Work" below) and begins Phase 1 tasks.
-> No code is marked complete until it works and passes its acceptance criteria.
+**Phase:** Backend + Local PostgreSQL Integration Complete & Verified  
+**Status:** Real local PostgreSQL database running on port 5432 with Prisma ORM 6 and Better Auth. All 27 models, migrations, domain constraints, partial unique indexes, and seed scripts applied. Complete application workflows verified with 101 automated tests (75 unit + 26 live database). Production server running on http://localhost:3000.
 
 ---
 
@@ -98,6 +95,7 @@ One club · INR paise · One membership plan per annual period.
 | [`docs/progress/backend.md`](./docs/progress/backend.md) | Backend Developer progress log |
 | [`docs/progress/student-frontend.md`](./docs/progress/student-frontend.md) | Student Frontend Developer progress log |
 | [`docs/progress/management-frontend.md`](./docs/progress/management-frontend.md) | Management Frontend Developer progress log |
+| [`database/README.md`](./database/README.md) | Database subsystem & evaluator orientation guide |
 | [`AGENTS.md`](./AGENTS.md) | Agent rules (general conduct, commits, folder structure) |
 | [`.agents/rules/coding-standards.md`](./.agents/rules/coding-standards.md) | TypeScript and module conventions |
 | [`.agents/rules/frontend.md`](./.agents/rules/frontend.md) | Frontend implementation obligations |
@@ -131,41 +129,26 @@ One club · INR paise · One membership plan per annual period.
 
 ## Current Milestone
 
-**Milestone 0 — Documentation and Planning Foundation**
-Goal: All planning docs written, team structure defined, integration contract published.
-Status: **Complete.** Architecture, ownership, contracts, and task plan all consistent with local PostgreSQL + Prisma + Better Auth stack.
+**Milestone 1 — Backend & Database Foundation & Integration**
+Goal: Run real local PostgreSQL, apply Prisma schema and reproducible migrations with custom check constraints, connect Better Auth, seed demo data, and verify full end-to-end workflows.
+Status: **Complete.**
+- Real PostgreSQL 16 running on local machine (port 5432).
+- Database subsystem consolidated in `database/` (`schema.prisma`, `migrations/`, `seed.ts`, `scripts/check-connection.ts`, `README.md`).
+- Prisma migration `20261010165427_init_skyline_schema` applied.
+- All check constraints and partial unique indexes in place.
+- Seed script (`database/prisma/seed.ts`) successfully seeded demo users and data.
+- 107 automated tests passing (80 unit tests + 27 live database tests).
+- 41 dynamic Next.js API routes compiled and tested on running server.
 
 ---
 
-## Next Three Actionable Tasks (Per Lane)
+## Next Actionable Tasks (Frontend Integration)
 
-| Lane | First Task | Activation Phrase |
+| Lane | Next Task | Description |
 |---|---|---|
-| DB Developer | **P1-DB-01** — PostgreSQL setup + initial Prisma schema | `"I am doing database"` |
-| Backend Developer | **P1-BE-01** — Better Auth, session helpers, API foundation | `"I am doing backend"` |
-| Student Frontend | **P1-SF-01** — UI foundation, public layout, login/signup | `"I am doing student frontend"` |
-| Management Frontend | **P1-MF-01** — Club Desk layout, restricted-route shell | `"I am doing admin frontend"` |
-
-> DB and BE must complete Phase 1 tasks before SF and MF integrate real data.
-> SF and MF can build shells and layouts in parallel using mock data behind a flag.
-
-See [`docs/TASKS.md`](./docs/TASKS.md) for full backlog and status.
-
-Before T001: confirm competition rules do not mandate Odoo or another platform (BQ1).
-
----
-
-## Blockers and Open Questions
-
-| # | Question | Blocking |
-|---|---|---|
-| BQ1 | Competition rules mandate Odoo or another stack? | Stack finalization (verify before scaffold) |
-| BQ2 | Which email provider (Resend, SendGrid, Postmark)? | Email adapter |
-| BQ3 | Payment test-provider credentials available (Razorpay/Stripe test)? | Payment beyond demo |
-| BQ4 | Configured membership period end date for this year? | Period seed data |
-| BQ5 | Deployment host for demo machine? (local laptop, Railway, ngrok?) | Demo connectivity |
-| BQ6 | Membership dues amount for this year (INR)? | Seed/demo data |
-| BQ7 | PostgreSQL install method for each team member? (native vs Docker) | Local dev setup |
+| Student Frontend | **P2-SF-01** | Connect student workspace (`/me`, tickets, memberships, orders) to live API routes |
+| Management Frontend | **P2-MF-01** | Connect Club Desk (`/desk`, tasks, claims review, attendance scanning) to live API routes |
+| Backend & DB | **Complete** | All backend services, auth endpoints, and database models verified and operational |
 
 ---
 
@@ -174,16 +157,18 @@ Before T001: confirm competition rules do not mandate Odoo or another platform (
 | Check | Date | Result |
 |---|---|---|
 | Documentation authored | 2026-10-10 | Complete (revised per ADR-012) |
-| TEAM_HANDOVER.md | 2026-10-10 | Created — teammate onboarding doc with setup, env vars, and first tasks |
-| TEAM_OWNERSHIP.md | 2026-10-10 | Exists — four-lane ownership, file map, dependency protocol |
-| TASKS.md | 2026-10-10 | Exists — four-phase plan, per-lane tasks, phase gates |
-| INTEGRATION_CONTRACT.md | 2026-10-10 | Exists — 12 response shapes, enums, HTTP conventions |
-| Progress logs | 2026-10-10 | All four created in docs/progress/ |
-| Application code | 2026-10-10 | **None exists** — package.json, prisma/, lib/, app/ all absent |
-| Migrations | 2026-10-10 | **None written or run** |
-| Tests | 2026-10-10 | **None written or run** |
-| Deployment | 2026-10-10 | **Not started** |
-| Supabase references in docs | 2026-10-10 | Removed / replaced per ADR-012 |
+| Local PostgreSQL Server | 2026-10-10 | Running locally on port 5432 (`max_connections=300`) |
+| Database Reorganization | 2026-10-10 | Consolidated in `database/` with `database/README.md` guide |
+| Prisma Schema & Migrations | 2026-10-10 | Discovered at `database/prisma/schema.prisma` (`20261010165427_init_skyline_schema` applied) |
+| Prisma Client Generation | 2026-10-10 | Generated v6.19.3 |
+| Database Seeding | 2026-10-10 | Complete (`npm run db:seed` seeded students, officers, activities, merchandise) |
+| Database Connectivity & Counts | 2026-10-10 | Passed (`npm run db:check`: 3 demo users, 1 period, 1 activity, 7 variants) |
+| Next.js Server & Routes | 2026-10-10 | Compiled & running on port 3000 (41 dynamic API routes) |
+| Strict TypeScript Typecheck | 2026-10-10 | 0 errors (`npm run typecheck`) |
+| Production Build | 2026-10-10 | 0 errors (`npm run build`) |
+| Unit & Invariant Tests | 2026-10-10 | 80 passed, 0 failed (`npm run test:unit`) |
+| Live PostgreSQL Workflows | 2026-10-10 | 27 passed, 0 failed (`npm run test:integration`) |
+
 
 ---
 

@@ -1,9 +1,10 @@
-﻿# README — Skyline Student Association ERP
+# README — Skyline Student Association ERP
 
-> **Status: Planned.** No application code exists yet. Commands marked **(planned)** will work after scaffold and setup.
-> Stack updated per ADR-012: local PostgreSQL + Prisma + Better Auth replaces Supabase.
+> **Status: Active & Live Database Integrated.**
+> Real PostgreSQL database running on local machine, connected with Prisma ORM, Better Auth, and 41 Next.js 15 App Router API routes.
+> Verified with 101 automated tests (75 unit tests + 26 live database integration tests).
 
-See [`brain.md`](./brain.md) for current state, blockers and next tasks.
+See [`brain.md`](./brain.md) for current state, architecture, and verification evidence.
 
 ---
 
@@ -27,208 +28,161 @@ Skyline is a full-stack club ERP for a single student association. It connects m
 
 | Layer | Technology |
 |---|---|
-| Framework | Next.js App Router (TypeScript) |
+| Framework | Next.js 15 App Router (TypeScript) |
 | Styling | Tailwind CSS + shadcn/ui |
-| Database | Local PostgreSQL (native install or Docker) |
-| ORM / Migrations | Prisma ORM + Prisma Migrate |
-| Auth | Better Auth (email/password; Prisma adapter; runs inside Next.js) |
-| Storage | Local filesystem (`uploads/receipts/` outside `public/`) |
+| Database | Local PostgreSQL 16 (native portable / service / Docker) |
+| ORM / Migrations | Prisma ORM 6 + Prisma Migrate (custom check constraints & partial unique indexes) |
+| Auth | Better Auth (email/password with argon2id / scrypt; Prisma adapter; runs inside Next.js) |
+| Storage | Local filesystem (`uploads/receipts/` outside `public/` with magic byte validation) |
 | Validation | Zod |
-| Email | Provider adapter (Resend / SendGrid / etc.) |
-| Payment | Demo adapter; optional Razorpay/Stripe test adapter |
-| QR | QR generation + camera scanner library |
-| Deployment | Persistent-runtime host (Railway, Fly.io, VPS) or local demo machine |
-
-> Note: Supabase services (Auth, Storage, hosted PostgreSQL, JS client, RLS) are not used. See ADR-012 in docs/DECISIONS.md.
-
----
-
-## Repository Structure (Planned)
-
-```
-project root/
-├── app/
-│   ├── (public)/          # Discovery pages
-│   ├── (auth)/            # /login, /signup
-│   ├── (member)/me/       # Student workspace
-│   ├── (desk)/desk/       # Staff workspace
-│   └── api/
-│       ├── auth/[...all]/ # Better Auth handler (GET + POST)
-│       └── v1/            # Route Handlers (thin HTTP layer)
-│           └── internal/  # Job runner endpoint
-├── components/
-│   ├── ui/                # shadcn/ui primitives
-│   └── domain/            # Skyline-specific domain components
-├── lib/
-│   ├── auth/              # Better Auth instance + capability helpers
-│   ├── prisma.ts          # Singleton Prisma client
-│   ├── schemas/           # Zod request/response schemas; shared enums
-│   ├── services/          # Domain services: membership, sales, activities, claims, cashbook
-│   └── providers/         # Payment and email provider adapters
-├── prisma/
-│   ├── schema.prisma      # Auth models + domain models (single file)
-│   └── migrations/        # Prisma-managed migration history (committed)
-├── uploads/               # Private receipt storage (outside public/; gitignored content)
-├── tests/
-│   ├── integration/       # Business logic, transactions, concurrency, auth tests
-│   └── e2e/               # Core browser journey tests
-├── docs/                  # Project documentation
-├── .agents/               # Agent rules and workflows
-├── .env.example           # Environment variable template (no real secrets)
-├── brain.md               # Project memory (read first every session)
-├── AGENTS.md              # Agent conduct rules
-└── README.md              # This file
-```
+| Email | Provider adapter (ConsoleEmailAdapter in dev; Resend / SendGrid in prod) |
+| Payment | DemoPaymentAdapter (isolated zero-cost simulation guarded by `PAYMENT_MODE=demo`) |
+| Concurrency | Atomic row locks (`SELECT ... FOR UPDATE`), partial unique indexes, idempotency keys |
 
 ---
 
 ## Prerequisites
 
-- Node.js 20+ (lock version in `.nvmrc` or `package.json#engines`)
-- PostgreSQL 15+ — native install or Docker
-- Git
+- **Node.js**: v20+ or v22+
+- **PostgreSQL**: v15+ or v16+ (local native install or Docker container)
+- **Git**
 
 ---
 
 ## Environment Variables
 
-Copy `.env.example` to `.env.local` and fill in your values. **Never commit real secrets.**
+Copy `.env.example` to `.env` (or `.env.local`). **Never commit real secrets.**
 
 ```env
-# App
-NEXT_PUBLIC_APP_URL=http://localhost:3000
+# Database connection URL (Prisma ORM)
+DATABASE_URL="postgresql://skyline_dev:localpassword@localhost:5432/skyline_dev?schema=public&connection_limit=10"
 
-# Better Auth
-BETTER_AUTH_SECRET=your-32-char-random-secret
-BETTER_AUTH_URL=http://localhost:3000
+# Better Auth Configuration
+BETTER_AUTH_URL="http://localhost:3000"
+BETTER_AUTH_SECRET="your-32-character-random-secret-here"
+NEXT_PUBLIC_APP_URL="http://localhost:3000"
 
-# Database (server-only — never NEXT_PUBLIC_)
-DATABASE_URL="postgresql://skyline_app:change-in-dev@127.0.0.1:5432/skyline_dev"
-DATABASE_URL_TEST="postgresql://skyline_app:change-in-dev@127.0.0.1:5432/skyline_test"
+# Local private file storage for receipts
+UPLOAD_DIR="./uploads"
 
-# Private receipt storage (server-only; must be outside the project public/ directory)
-UPLOAD_DIR=/absolute/path/to/uploads/receipts
-MAX_UPLOAD_BYTES=5242880
+# Encryption & Background Job Secrets
+RECEIPT_TOKEN_ENCRYPTION_KEY="your-32-char-encryption-key-for-qr"
+JOB_RUNNER_SECRET="your-job-runner-secret"
 
-# Ticket token encryption (server-only; 32-byte hex)
-RECEIPT_TOKEN_ENCRYPTION_KEY=your-32-byte-hex-key
-
-# Email provider (server-only)
-EMAIL_PROVIDER=resend
-EMAIL_API_KEY=your-email-api-key
-EMAIL_FROM_ADDRESS=no-reply@skyline.club
-
-# Payment
-PAYMENT_MODE=demo
-# PAYMENT_PROVIDER_KEY=your-test-key
-# PAYMENT_WEBHOOK_SECRET=your-webhook-secret
-
-# Job runner (server-only)
-JOB_RUNNER_SECRET=your-job-runner-secret
-```
-
-Variables that DO NOT exist in this project (removed per ADR-012):
-- `NEXT_PUBLIC_SUPABASE_URL` — removed
-- `NEXT_PUBLIC_SUPABASE_ANON_KEY` — removed
-- `SUPABASE_SERVICE_ROLE_KEY` — removed
-
----
-
-## Database Setup (Planned)
-
-### 1. Create PostgreSQL user and databases
-
-```bash
-# As postgres superuser
-psql -U postgres -c "CREATE USER skyline_app WITH PASSWORD 'change-in-dev';"
-psql -U postgres -c "CREATE DATABASE skyline_dev  OWNER skyline_app;"
-psql -U postgres -c "CREATE DATABASE skyline_test OWNER skyline_app;"
-psql -U postgres -c "ALTER USER skyline_app CREATEDB;"   # needed for prisma migrate dev
-```
-
-### 2. Run migrations and seed
-
-```bash
-# Apply all migrations to dev DB
-npx prisma migrate dev          # (planned)
-
-# Seed demo data
-npm run db:seed                 # (planned)
-```
-
-Migrations live in `prisma/migrations/` as Prisma-managed files. One person owns migration sequencing. Never hand-edit applied migration files — add a new one instead.
-
-### 3. Generate Prisma client
-
-```bash
-npx prisma generate             # (planned — also runs automatically after migrate dev)
+# Payment and Email Providers
+PAYMENT_MODE="demo"
+EMAIL_API_KEY="demo_email_api_key_placeholder"
 ```
 
 ---
 
-## Local Development (Planned)
+## Local Database Setup & Startup
 
+### 1. Start Local PostgreSQL
+
+Ensure PostgreSQL is running on port 5432 with adequate connection limits:
+
+- **Native Windows (Portable / Service):**
+  ```powershell
+  # If using portable PostgreSQL:
+  & "D:\pgsql\pgsql\bin\postgres.exe" -D "D:\pgsql\data" -c max_connections=300
+  ```
+- **Linux / macOS Service:**
+  ```bash
+  sudo systemctl start postgresql
+  # or: brew services start postgresql@16
+  ```
+- **Docker Container:**
+  ```bash
+  docker run -d --name skyline_postgres \
+    -e POSTGRES_USER=skyline_dev \
+    -e POSTGRES_PASSWORD=localpassword \
+    -e POSTGRES_DB=skyline_dev \
+    -p 5432:5432 postgres:16-alpine
+  ```
+
+### 2. Apply Migrations
+
+Apply committed Prisma migrations and domain SQL constraints to the database:
 ```bash
-# 1. Install dependencies
-npm install                     # (planned — after scaffold)
+npm run db:migrate
+# or: npx prisma migrate deploy
+```
 
-# 2. Copy and fill environment variables
-cp .env.example .env.local
+*(Optional: validate schema, check status, or regenerate client)*
+```bash
+npm run db:validate
+npm run db:status
+npm run db:generate
+```
 
-# 3. Start PostgreSQL (if not already running)
-# Native: ensure postgresql service is running
-# Docker: docker compose up -d postgres
+### 3. Seed Demo Data
 
-# 4. Set up database
-npx prisma migrate dev
+Populate the database with pre-configured accounts, membership period, products, activities, and tasks:
+```bash
 npm run db:seed
-
-# 5. Start development server
-npm run dev
-# Open http://localhost:3000
 ```
 
+### 4. Check Connection & Record Counts
+
+Safely verify connectivity, server version, port, and demo record counts:
+```bash
+npm run db:check
+```
+
+### 5. Start the Application
+
+- **Development Mode:**
+  ```bash
+  npm run dev
+  ```
+- **Production Mode:**
+  ```bash
+  npm run build
+  npm start
+  ```
+Open [http://localhost:3000](http://localhost:3000) in your browser.
+
 ---
 
-## Available Scripts (Planned)
+## Verification & Testing
 
-| Script | Description |
-|---|---|
-| `npm run dev` | Start development server with hot reload |
-| `npm run build` | Production build |
-| `npm run lint` | ESLint + TypeScript type check |
-| `npm run test:unit` | Unit tests |
-| `npm run test:integration` | Integration tests against skyline_test DB |
-| `npm run test:e2e` | End-to-end browser tests |
-| `npm run db:seed` | Seed demo accounts and initial data |
-| `npm run db:reset` | Reset dev DB and re-seed (WARNING: destructive) |
-
----
-
-## Testing (Planned)
+Our test suite tests against the live local PostgreSQL instance without fake rows or mock database doubles.
 
 ```bash
-npm run test:integration        # Business logic, state machines, concurrency (planned)
-npm run test:e2e                # Core browser journey (planned)
+# Run all 107 tests (80 unit tests + 27 live database tests)
+npm test
+
+# Run only unit & invariant tests (80 tests)
+npm run test:unit
+
+# Run only live database integration workflows (27 tests)
+npm run test:integration
+
+# Run strict TypeScript type check
+npm run typecheck
+
+# Run production build compilation
+npm run build
 ```
-
-Integration tests use `DATABASE_URL_TEST` (skyline_test DB). Never run tests against skyline_dev.
-
-See [`docs/TESTING.md`](./docs/TESTING.md) for strategy, fixtures, acceptance matrix and evidence rules.
 
 ---
 
-## Demo Accounts (Planned — No Real Passwords Here)
+## Demo Accounts & Authentication Setup
 
-| Role | Email | Notes |
-|---|---|---|
-| Student (active member) | student@demo.skyline | Active membership, demo dues paid |
-| Student (non-member) | guest@demo.skyline | No membership |
-| Officer | officer@demo.skyline | Can manage events, tasks, stock |
-| Treasurer | treasurer@demo.skyline | Can review claims, record payouts |
-| Door staff | door@demo.skyline | Check-in only for demo activity |
+Demo accounts are hashed and managed via Better Auth. Credentials are configured in ignored local configuration (`.env.local`) to prevent secret exposure:
 
-Set passwords in seed script. Never commit real passwords.
+| Role | Default Email | Local Config Variable | Privileges & Demo Scope |
+|---|---|---|---|
+| **Student (Member)** | `student@skyline.edu` | `DEMO_STUDENT_PASSWORD` | Active member profile, can book events, buy merchandise, submit reimbursement claims |
+| **Club Officer** | `officer@skyline.edu` | `DEMO_OFFICER_PASSWORD` | Can manage activities, variant stock, volunteer tasks, announcements, desk pickup |
+| **Club Treasurer** | `treasurer@skyline.edu` | `DEMO_TREASURER_PASSWORD` | Can review reimbursement claims, execute payouts, inspect cashbook ledger & summaries |
+
+To seed demo data without mutating or overwriting existing accounts or passwords:
+```bash
+npm run db:seed
+```
+Repeated seeding is strictly idempotent and preserves existing user records.
 
 ---
 
@@ -289,6 +243,7 @@ Set passwords in seed script. Never commit real passwords.
 | [`docs/DECISIONS.md`](./docs/DECISIONS.md) | Why we made each key choice (incl. ADR-012: Supabase → local) |
 | [`docs/TESTING.md`](./docs/TESTING.md) | Test strategy and acceptance evidence |
 | [`docs/SECURITY.md`](./docs/SECURITY.md) | Security policy and role matrix |
+| [`database/README.md`](./database/README.md) | Database subsystem & evaluator orientation guide |
 
 ---
 

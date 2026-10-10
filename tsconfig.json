@@ -1,0 +1,76 @@
+{
+  // Compiler configuration options for TypeScript
+  "compilerOptions": {
+    // Specify ECMAScript target version
+    "target": "ES2022",
+    // Specify library files to be included in compilation
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    // Allow JavaScript files to be compiled
+    "allowJs": true,
+    // Skip type checking of all declaration files (.d.ts)
+    "skipLibCheck": true,
+    // Enable all strict type checking options
+    "strict": true,
+    // Do not emit outputs from compilation (Next.js handles build)
+    "noEmit": true,
+    // Enable incremental compilation
+    "incremental": true,
+    // Specify module code generation
+    "module": "esnext",
+    // Determine how modules get resolved
+    "moduleResolution": "bundler",
+    // Enable importing .json files
+    "resolveJsonModule": true,
+    // Ensure that each file can be safely transpiled without relying on other imports
+    "isolatedModules": true,
+    // Support JSX in .tsx files
+    "jsx": "preserve",
+    // Base directory to resolve non-relative module names
+    "baseUrl": ".",
+    // List of path mapping entries for module imports
+    "paths": {
+      // Map @/lib/* to Backend/lib/* or fallback to lib/*
+      "@/lib/*": [
+        "./Backend/lib/*",
+        "./lib/*"
+      ],
+      // Map @/backend/* to Backend/*
+      "@/backend/*": [
+        "./Backend/*"
+      ],
+      // Map @/* to Backend/* or root directory
+      "@/*": [
+        "./Backend/*",
+        "./*"
+      ]
+    },
+    // List of plugins for Next.js TypeScript language service
+    "plugins": [
+      {
+        // Use Next.js TypeScript plugin
+        "name": "next"
+      }
+    ],
+    "esModuleInterop": true
+  },
+  // Specify which files to include in compilation
+  "include": [
+    // Include all Next.js generated types
+    "next-env.d.ts",
+    // Include all TypeScript files in project
+    "**/*.ts",
+    // Include all TypeScript React files in project
+    "**/*.tsx",
+    // Include Next.js build types
+    ".next/types/**/*.ts"
+  ],
+  // Specify which files to exclude from compilation
+  "exclude": [
+    // Exclude node_modules directory
+    "node_modules"
+  ]
+}

@@ -1,12 +1,12 @@
-﻿# =============================================================================
+# =============================================================================
 # Skyline Student Association — .gitignore
 # Generated: 2026-10-10 | Stack: Next.js + Local PostgreSQL + Prisma + Better Auth
 #
 # KEEP TRACKED (do not add these):
 #   .env.example          — placeholder template, no real secrets
-#   prisma/schema.prisma  — database schema
-#   prisma/migrations/**  — migration history
-#   prisma/seed.ts        — demo seed script
+#   database/prisma/schema.prisma  — database schema
+#   database/prisma/migrations/**  — migration history
+#   database/prisma/seed.ts        — demo seed script
 #   package-lock.json     — lockfile (exact reproducible installs)
 #   docs/**               — all documentation
 #   brain.md, README.md, AGENTS.md
