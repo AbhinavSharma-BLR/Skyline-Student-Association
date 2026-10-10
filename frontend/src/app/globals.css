@@ -1,0 +1,64 @@
+@import "tailwindcss";
+
+:root {
+  /* Black, White, and Deep Cobalt Blue Color System */
+  --cobalt: #0047AB;
+  --black: #0A0A0A;
+  --pure-white: #FFFFFF;
+  --off-white: #F7F8FA;
+  --soft-blue: #E8F0FF;
+  --slate-gray: #64748B;
+  --border-gray: #E5E7EB;
+
+  --background: var(--off-white);
+  --foreground: var(--black);
+
+  --font-modern-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+@theme inline {
+  --color-cobalt: var(--cobalt);
+  --color-black: var(--black);
+  --color-pure-white: var(--pure-white);
+  --color-off-white: var(--off-white);
+  --color-soft-blue: var(--soft-blue);
+  --color-slate-gray: var(--slate-gray);
+  --color-border-gray: var(--border-gray);
+  --font-sans-modern: var(--font-modern-sans);
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--off-white);
+  color: var(--black);
+}
+
+body {
+  background-color: var(--off-white);
+  color: var(--black);
+  min-height: 100vh;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  font-family: var(--font-modern-sans);
+}
+
+/* Custom Text Selection */
+::selection {
+  background-color: var(--soft-blue);
+  color: var(--cobalt);
+}
+
+/* Accessibility: Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
