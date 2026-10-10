@@ -1,4 +1,4 @@
-﻿# docs/ARCHITECTURE.md — Technical Source of Truth
+# docs/ARCHITECTURE.md — Technical Source of Truth
 
 **Owner:** This file. Database schema, API contracts, transaction design and runtime architecture live here.
 **Last updated:** 2026-10-10 | **Status:** Documentation revised — no code implemented.
@@ -692,7 +692,7 @@ model Task {
   title      String
   assigneeId String?
   dueAt      DateTime?
-  status     String    @default("todo")  // CHECK: 'todo'|'in_progress'|'done'
+  status     String    @default("open")  // CHECK: 'open'|'in_progress'|'done'|'cancelled'
   createdAt  DateTime  @default(now())
   updatedAt  DateTime  @updatedAt
   activity   Activity  @relation(fields: [activityId], references: [id])
@@ -705,7 +705,7 @@ model Claim {
   activityId    String?
   amountPaise   BigInt    // CHECK > 0
   reason        String
-  status        String    @default("submitted")  // CHECK: 'submitted'|'approved'|'rejected'|'paid'
+  status        String    @default("submitted")  // CHECK: 'submitted'|'under_review'|'approved'|'rejected'|'paid'
   reviewerId    String?
   reviewNote    String?
   payoutRef     String?
@@ -850,7 +850,7 @@ ALTER TABLE payment_attempts ADD CONSTRAINT chk_payment_state
   CHECK (state IN ('pending','confirmed','failed'));
 ALTER TABLE payment_attempts ADD CONSTRAINT chk_payment_amount_pos CHECK ("amountPaise" > 0);
 ALTER TABLE claims ADD CONSTRAINT chk_claim_status
-  CHECK (status IN ('submitted','approved','rejected','paid'));
+  CHECK (status IN ('submitted','under_review','approved','rejected','paid'));
 ALTER TABLE claims ADD CONSTRAINT chk_claim_amount_pos CHECK ("amountPaise" > 0);
 ALTER TABLE claims ADD CONSTRAINT chk_paid_requires_ref
   CHECK (status <> 'paid' OR ("payoutRef" IS NOT NULL AND "paidAt" IS NOT NULL));
@@ -862,9 +862,21 @@ ALTER TABLE cashbook_entries ADD CONSTRAINT chk_cashbook_one_source CHECK (
    CASE WHEN "claimId"             IS NOT NULL THEN 1 ELSE 0 END +
    CASE WHEN "fundraiserReceiptId" IS NOT NULL THEN 1 ELSE 0 END) = 1
 );
+-- Partial unique indexes to prevent duplicate cashbook entries per business transaction
+-- (Note: chk_cashbook_one_source only validates source count per row; these unique indexes prevent multiple rows sharing the same source)
+CREATE UNIQUE INDEX idx_cashbook_unique_payment_attempt
+  ON cashbook_entries("paymentAttemptId")
+  WHERE "paymentAttemptId" IS NOT NULL;
+CREATE UNIQUE INDEX idx_cashbook_unique_claim
+  ON cashbook_entries("claimId")
+  WHERE "claimId" IS NOT NULL;
+CREATE UNIQUE INDEX idx_cashbook_unique_fundraiser_receipt
+  ON cashbook_entries("fundraiserReceiptId")
+  WHERE "fundraiserReceiptId" IS NOT NULL;
+
 ALTER TABLE roles ADD CONSTRAINT chk_role_value CHECK (role IN ('officer','treasurer'));
 ALTER TABLE activity_staff ADD CONSTRAINT chk_capability CHECK (capability IN ('checkin','volunteer'));
-ALTER TABLE tasks ADD CONSTRAINT chk_task_status CHECK (status IN ('todo','in_progress','done'));
+ALTER TABLE tasks ADD CONSTRAINT chk_task_status CHECK (status IN ('open','in_progress','done','cancelled'));
 ALTER TABLE announcements ADD CONSTRAINT chk_audience CHECK (audience IN ('public','members'));
 ALTER TABLE order_items ADD CONSTRAINT chk_quantity_pos CHECK (quantity > 0);
 -- Partial unique for payment provider ref

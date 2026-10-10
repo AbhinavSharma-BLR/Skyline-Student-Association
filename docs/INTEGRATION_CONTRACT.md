@@ -1,4 +1,4 @@
-﻿# docs/INTEGRATION_CONTRACT.md — Shared API Contract
+# docs/INTEGRATION_CONTRACT.md — Shared API Contract
 
 **Owner:** Backend Developer. Contract changes must be posted in docs/progress/backend.md before dependent roles adopt them.
 **Last updated:** 2026-10-10
@@ -390,7 +390,7 @@ GET    /api/v1/claims/me               — own claims
 GET    /api/v1/claims                  — all claims [treasurer]
 PATCH  /api/v1/claims/:id/approve      — approve claim [treasurer, not self]
 PATCH  /api/v1/claims/:id/reject       — reject claim [treasurer, not self]
-PATCH  /api/v1/claims/:id/payout       — record payout [treasurer, not reviewer, not claimant]
+PATCH  /api/v1/claims/:id/payout       — record payout [treasurer, not claimant]
 GET    /api/v1/claims/:id/receipt      — stream receipt file [owner or treasurer]
 POST   /api/v1/claims/:id/receipt      — upload receipt file [owner, before approval]
 ```

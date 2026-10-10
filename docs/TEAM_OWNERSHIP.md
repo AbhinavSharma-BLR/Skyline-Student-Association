@@ -1,4 +1,4 @@
-﻿# docs/TEAM_OWNERSHIP.md — Four-Person Team Ownership
+# docs/TEAM_OWNERSHIP.md — Four-Person Team Ownership
 
 **Owner of this file:** Backend Developer (shared planning document — any update requires all four teammates to be notified)
 **Last updated:** 2026-10-10
@@ -16,11 +16,11 @@
 **Activation phrase:** `"I am doing database"`
 
 **Owns (sole authority):**
-- `prisma/schema.prisma` — all model definitions including Better Auth models
-- `prisma/migrations/**` — complete migration sequence; only DB dev commits new migrations
-- `prisma/seed.ts` — seed strategy and demo data
-- `prisma/seed-helpers/` — fixture factories
-- `tests/integration/db/` — database-level concurrency and constraint tests
+- `database/prisma/schema.prisma` — all model definitions including Better Auth models
+- `database/prisma/migrations/**` — complete migration sequence; only DB dev commits new migrations
+- `database/prisma/seed.ts` — seed strategy and demo data
+- `database/scripts/**` — database utilities and diagnostics
+- `database/README.md` — evaluator guide for database subsystem
 - `docs/progress/database.md` — own progress log
 
 **Does NOT own:**
@@ -66,8 +66,8 @@
 - `docs/progress/backend.md` — own progress log
 
 **Does NOT independently edit:**
-- `prisma/schema.prisma` — must submit a written DB dependency request to DB Developer
-- `prisma/migrations/**`
+- `database/prisma/schema.prisma` — must submit a written DB dependency request to DB Developer
+- `database/prisma/migrations/**`
 - Frontend pages or visual components
 - Database-owned transaction function definitions
 
@@ -92,7 +92,7 @@
 
 **Does NOT own:**
 - `app/api/**`
-- `prisma/**`
+- `database/**`
 - `app/(desk)/**`
 - `components/desk/**`
 
@@ -111,7 +111,7 @@
 
 **Does NOT own:**
 - `app/api/**`
-- `prisma/**`
+- `database/**`
 - `components/ui/**` — import only
 - `tailwind.config.ts` — import only
 - `app/(public)/**` or `app/(member)/**`
@@ -126,9 +126,11 @@
 
 | File / Directory | Owner |
 |---|---|
-| `prisma/schema.prisma` | DB |
-| `prisma/migrations/**` | DB |
-| `prisma/seed.ts` | DB |
+| `database/prisma/schema.prisma` | DB |
+| `database/prisma/migrations/**` | DB |
+| `database/prisma/seed.ts` | DB |
+| `database/scripts/**` | DB |
+| `database/README.md` | DB |
 | `lib/auth/auth.ts` | BE |
 | `lib/auth/session.ts` | BE |
 | `lib/prisma.ts` | BE |
