@@ -1,4 +1,4 @@
-﻿# Skyline — line ending normalisation
+# Skyline - line ending normalisation
 # Ensure consistent LF in the repository; git handles CRLF conversion on Windows checkout.
 
 # Default: normalise everything to LF in the repo
