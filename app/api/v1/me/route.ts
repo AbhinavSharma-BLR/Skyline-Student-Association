@@ -18,15 +18,15 @@ export async function GET(request: NextRequest) {
     // 1. Authenticate session
     const session = await requireAuth(request);
 
-    // 2. Fetch server-verified roles from database
-    const rolesRecords = await (prisma as any).role.findMany({
-      where: { userId: session.user.id },
-      select: { role: true },
-    });
+    // 2. Fetch server-verified roles and active membership in parallel
+    const [rolesRecords, membership] = await Promise.all([
+      (prisma as any).role.findMany({
+        where: { userId: session.user.id },
+        select: { role: true },
+      }),
+      MembershipService.getCurrentMembership(session.user.id),
+    ]);
     const roles: string[] = rolesRecords.map((r: { role: string }) => r.role);
-
-    // 3. Fetch active membership
-    const membership = await MembershipService.getCurrentMembership(session.user.id);
     const isMember = Boolean(membership?.isMember);
 
     // 4. Return standard success envelope

@@ -68,18 +68,23 @@ export default function ClubDeskPage() {
                 onClick={() => loginAs("officer")}
                 className="w-full py-2.5 px-4 rounded-xl bg-[#0047AB] text-white text-xs font-bold hover:bg-[#003785] transition"
               >
-                ⚡ Sign in as Anvitha (Club Officer)
+                ⚡ Sign in as Olivia (Club Officer)
               </button>
               <button
                 type="button"
                 onClick={() => loginAs("treasurer")}
                 className="w-full py-2.5 px-4 rounded-xl bg-[#0A0A0A] text-white text-xs font-bold hover:bg-[#262626] transition"
               >
-                ⚡ Sign in as Varsha (Treasurer)
+                ⚡ Sign in as Trevor (Treasurer)
               </button>
               <Link href="/login" className="mt-2">
                 <Button variant="outline" className="w-full text-xs">
                   Go to Login Page
+                </Button>
+              </Link>
+              <Link href="/">
+                <Button variant="ghost" className="w-full text-xs text-[#64748B] hover:text-[#0A0A0A] font-medium">
+                  ← Back to Home
                 </Button>
               </Link>
             </div>
@@ -89,13 +94,13 @@ export default function ClubDeskPage() {
     );
   }
 
-  // 2. RBAC BARRIER: 403 Forbidden for Students (Adithya / Abhinav)
+  // 2. RBAC BARRIER: 403 Forbidden for Students (Sam / Abhinav)
   if (!canAccessDesk) {
     return (
       <div className="min-h-screen bg-[#F7F8FA] flex flex-col font-sans selection:bg-[#E8F0FF] selection:text-[#0047AB]">
         <header className="sticky top-0 z-40 border-b border-[#E5E7EB] bg-white">
           <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-            <Link href="/" className="flex items-center gap-2.5">
+            <Link href="/me" className="flex items-center gap-2.5" title="Return to Student Workspace">
               <span className="w-8 h-8 rounded-lg bg-[#0047AB] text-white flex items-center justify-center font-bold text-base">
                 S
               </span>
@@ -142,14 +147,14 @@ export default function ClubDeskPage() {
                 onClick={() => loginAs("officer")}
                 className="w-full py-2.5 px-4 rounded-xl bg-[#0047AB] text-white text-xs font-bold hover:bg-[#003785] transition"
               >
-                ⚡ Switch to Anvitha (Club Officer) &amp; Unlock Desk
+                ⚡ Switch to Olivia (Club Officer) &amp; Unlock Desk
               </button>
               <button
                 type="button"
                 onClick={() => loginAs("treasurer")}
                 className="w-full py-2.5 px-4 rounded-xl bg-[#0A0A0A] text-white text-xs font-bold hover:bg-[#262626] transition"
               >
-                ⚡ Switch to Varsha (Treasurer) &amp; View Ledger
+                ⚡ Switch to Trevor (Treasurer) &amp; View Ledger
               </button>
               <Link href="/me" className="mt-2">
                 <Button variant="outline" className="w-full text-xs">

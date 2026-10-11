@@ -14,7 +14,7 @@ export default function HolographicTicketShowcasePage() {
   // Custom configurations aligned with Skyline brand identity
   const themes = {
     skyline: {
-      name: currentUser?.name?.toUpperCase() || "ADITHYA SHARMA",
+      name: currentUser?.name?.toUpperCase() || "SAM STUDENT",
       presenter: "SKYLINE STUDENT ASSOC",
       event: "TECH & INNOVATION SUMMIT 2026",
       venue: "WEST WING • MAIN AUDITORIUM",

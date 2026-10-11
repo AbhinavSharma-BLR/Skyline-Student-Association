@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { FormEvent } from "react";
@@ -19,8 +19,19 @@ export type AccountType = "Guest Member" | "Member" | "Treasurer" | "Club Office
  * - Club Officer: Club events, ticket check-in, inventory, and volunteer operations.
  */
 export default function SignupPage() {
-  const { signupNewStudent, loginWithEmail } = useAuth();
+  const { signupNewStudent, loginWithEmail, currentUser, isAuthenticated, isLoading } = useAuth();
   const router = useRouter();
+
+  // Redirect already authenticated users straight to their dashboard
+  useEffect(() => {
+    if (!isLoading && isAuthenticated && currentUser) {
+      const targetDashboard =
+        currentUser.role === "officer" || currentUser.role === "treasurer"
+          ? "/desk"
+          : "/me";
+      router.replace(targetDashboard);
+    }
+  }, [isLoading, isAuthenticated, currentUser, router]);
 
   // Form input states
   const [accountType, setAccountType] = useState<AccountType>("Guest Member");

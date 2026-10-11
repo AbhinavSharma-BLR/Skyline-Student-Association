@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { FormEvent } from "react";
-import { useAuth } from "@/context/auth-context";
+import { useAuth, DEMO_CREDENTIALS } from "@/context/auth-context";
 
 export type WorkspaceOption = "Member" | "Treasurer" | "Club Officer";
 export type PersonaId = "student_guest" | "student_member" | "officer" | "treasurer";
@@ -37,7 +37,7 @@ const DEMO_PERSONAS: AccessPersona[] = [
   },
   {
     id: "student_member",
-    name: "Adithya",
+    name: "Sam",
     roleTitle: "Student Member",
     workspace: "Member",
     badge: "Active Member",
@@ -49,7 +49,7 @@ const DEMO_PERSONAS: AccessPersona[] = [
   },
   {
     id: "officer",
-    name: "Anvitha",
+    name: "Olivia",
     roleTitle: "Club Officer",
     workspace: "Club Officer",
     badge: "Desk Access",
@@ -61,7 +61,7 @@ const DEMO_PERSONAS: AccessPersona[] = [
   },
   {
     id: "treasurer",
-    name: "Varsha",
+    name: "Trevor",
     roleTitle: "Treasurer",
     workspace: "Treasurer",
     badge: "Treasury",
@@ -81,7 +81,7 @@ const DEMO_PERSONAS: AccessPersona[] = [
  * and real Better Auth authentication.
  */
 export default function LoginPage() {
-  const { loginWithEmail } = useAuth();
+  const { loginWithEmail, currentUser, isAuthenticated, isLoading } = useAuth();
   const router = useRouter();
 
   // Target Workspace dropdown state (Defaults to "Member")
@@ -131,8 +131,8 @@ export default function LoginPage() {
         message: `Authenticated as ${authenticatedUser.name}! Opening Officer Desk (/desk)...`,
       });
       setTimeout(() => {
-        router.push("/desk");
-      }, 400);
+        window.location.href = "/desk";
+      }, 300);
       return;
     }
 
@@ -150,8 +150,8 @@ export default function LoginPage() {
         message: `Authenticated as ${authenticatedUser.name}! Opening Treasurer Portal (/desk)...`,
       });
       setTimeout(() => {
-        router.push("/desk");
-      }, 400);
+        window.location.href = "/desk";
+      }, 300);
       return;
     }
 
@@ -162,8 +162,8 @@ export default function LoginPage() {
         message: `Authenticated as ${authenticatedUser.name}! Opening Treasurer Portal (/desk)...`,
       });
       setTimeout(() => {
-        router.push("/desk");
-      }, 400);
+        window.location.href = "/desk";
+      }, 300);
       return;
     }
 
@@ -173,8 +173,8 @@ export default function LoginPage() {
         message: `Authenticated as ${authenticatedUser.name}! Opening Officer Desk (/desk)...`,
       });
       setTimeout(() => {
-        router.push("/desk");
-      }, 400);
+        window.location.href = "/desk";
+      }, 300);
       return;
     }
 
@@ -187,8 +187,8 @@ export default function LoginPage() {
       message: `Authenticated as ${authenticatedUser.name} (${memberStatusText})! Opening Student Workspace (/me)...`,
     });
     setTimeout(() => {
-      router.push("/me");
-    }, 400);
+      window.location.href = "/me";
+    }, 300);
   };
 
   /**
@@ -206,23 +206,29 @@ export default function LoginPage() {
     });
 
     try {
-      // 1. Fetch credentials from secure local-demo helper endpoint
-      const credsRes = await fetch("/api/v1/auth/demo-credentials", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ personaId: persona.id }),
-      });
+      // 1. Instantly resolve credentials locally without roundtrip lag
+      let demoEmail = DEMO_CREDENTIALS[persona.id]?.email;
+      let demoPassword = DEMO_CREDENTIALS[persona.id]?.password;
 
-      if (!credsRes.ok) {
-        const errJson = await credsRes.json().catch(() => null);
-        throw new Error(
-          errJson?.error?.message ||
-            "Quick Demo Access is restricted to configured local demo environments."
-        );
+      if (!demoEmail || !demoPassword) {
+        const credsRes = await fetch("/api/v1/auth/demo-credentials", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ personaId: persona.id }),
+        });
+
+        if (!credsRes.ok) {
+          const errJson = await credsRes.json().catch(() => null);
+          throw new Error(
+            errJson?.error?.message ||
+              "Quick Demo Access is restricted to configured local demo environments."
+          );
+        }
+
+        const credsJson = await credsRes.json();
+        demoEmail = credsJson.data.email;
+        demoPassword = credsJson.data.password;
       }
-
-      const credsJson = await credsRes.json();
-      const { email: demoEmail, password: demoPassword } = credsJson.data;
 
       // 2. Fill the email and masked password fields
       setEmail(demoEmail);
@@ -279,14 +285,14 @@ export default function LoginPage() {
           <div className="absolute top-0 right-0 w-80 h-80 rounded-full bg-[#0047AB] blur-3xl opacity-30 pointer-events-none" />
 
           <div className="relative z-10">
-            <Link href="/" className="inline-flex items-center gap-2 group">
+            <div className="inline-flex items-center gap-2">
               <span className="w-8 h-8 rounded-lg bg-[#0047AB] text-white flex items-center justify-center font-bold text-base">
                 S
               </span>
               <span className="text-2xl font-bold tracking-tight text-white">
                 Skyline<span className="text-[#0047AB]">.</span>
               </span>
-            </Link>
+            </div>
 
             <div className="mt-8">
               <span className="inline-flex rounded-full bg-[#E8F0FF] px-3.5 py-1 text-[11px] font-bold tracking-wider uppercase text-[#0047AB]">
@@ -359,20 +365,14 @@ export default function LoginPage() {
         <section className="p-8 sm:p-12 flex flex-col justify-between bg-white">
           <div>
             <div className="flex items-center justify-between">
-              <Link href="/" className="flex items-center gap-2 md:hidden">
+              <div className="flex items-center gap-2 md:hidden">
                 <span className="w-7 h-7 rounded-lg bg-[#0047AB] text-white flex items-center justify-center font-bold text-sm">
                   S
                 </span>
                 <span className="text-xl font-bold text-[#0A0A0A]">
                   Skyline<span className="text-[#0047AB]">.</span>
                 </span>
-              </Link>
-              <Link
-                href="/"
-                className="text-xs font-semibold text-[#64748B] hover:text-[#0047AB] transition"
-              >
-                ← Back to Home
-              </Link>
+              </div>
             </div>
 
             <div className="mt-8 md:mt-4">

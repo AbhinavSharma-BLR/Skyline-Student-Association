@@ -232,7 +232,7 @@ export class BookingService {
         });
       }
 
-      if (booking.purchase) {
+      if (booking.purchase && Number(booking.purchase.amountPaise) > 0) {
         // Record payment attempt
         const attempt = await tx.paymentAttempt.create({
           data: {

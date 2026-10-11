@@ -116,7 +116,7 @@ export async function POST(request: NextRequest) {
       password: process.env.DEMO_STUDENT_PASSWORD || "StudentPassword123!",
       persona: {
         id: "student_member",
-        name: "Adithya",
+        name: "Sam",
         roleTitle: "Student Member",
         workspace: "Member",
         targetPath: "/me",
@@ -127,7 +127,7 @@ export async function POST(request: NextRequest) {
       password: process.env.DEMO_OFFICER_PASSWORD || "OfficerPassword123!",
       persona: {
         id: "officer",
-        name: "Anvitha",
+        name: "Olivia",
         roleTitle: "Club Officer",
         workspace: "Club Officer",
         targetPath: "/desk",
@@ -138,7 +138,7 @@ export async function POST(request: NextRequest) {
       password: process.env.DEMO_TREASURER_PASSWORD || "TreasurerPassword123!",
       persona: {
         id: "treasurer",
-        name: "Varsha",
+        name: "Trevor",
         roleTitle: "Treasurer",
         workspace: "Treasurer",
         targetPath: "/desk",

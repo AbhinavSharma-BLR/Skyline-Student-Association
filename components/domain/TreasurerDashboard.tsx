@@ -323,7 +323,7 @@ export function TreasurerDashboard({ currentUser, logout }: TreasurerDashboardPr
       <header className="sticky top-0 z-40 border-b border-[#262626] bg-[#0A0A0A] text-white">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3.5">
           <div className="flex items-center gap-6">
-            <Link href="/" className="flex items-center gap-2 group">
+            <Link href="/desk" className="flex items-center gap-2 group" title="Return to Treasurer Desk">
               <span className="w-8 h-8 rounded-lg bg-[#0047AB] text-white flex items-center justify-center font-bold text-base transition group-hover:scale-105">
                 S
               </span>

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useEffect, useCallback } from "react";
+import React, { useState, useRef, useEffect, useCallback, useMemo } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
 import { useAuth } from "@/context/auth-context";
@@ -183,6 +183,40 @@ export default function StudentWorkspacePage() {
   const [activities, setActivities] = useState<ActivityItem[]>([]);
   const [loadingActivities, setLoadingActivities] = useState(false);
   const [activitiesError, setActivitiesError] = useState<string | null>(null);
+  const [eventsFilter, setEventsFilter] = useState<"all" | "upcoming" | "past">("all");
+  const [eventsPage, setEventsPage] = useState(1);
+  const EVENTS_PAGE_SIZE = 6;
+
+  const filteredActivities = useMemo(() => {
+    const now = new Date();
+    const sorted = [...activities].sort((a, b) => {
+      const isPastA = a.startsAt ? new Date(a.startsAt) < now : false;
+      const isPastB = b.startsAt ? new Date(b.startsAt) < now : false;
+      if (isPastA === isPastB) {
+        const timeA = a.startsAt ? new Date(a.startsAt).getTime() : 0;
+        const timeB = b.startsAt ? new Date(b.startsAt).getTime() : 0;
+        return isPastA ? timeB - timeA : timeA - timeB;
+      }
+      return isPastA ? 1 : -1;
+    });
+
+    if (eventsFilter === "upcoming") {
+      return sorted.filter((act) => act.startsAt ? new Date(act.startsAt) >= now : true);
+    }
+    if (eventsFilter === "past") {
+      return sorted.filter((act) => act.startsAt ? new Date(act.startsAt) < now : false);
+    }
+    return sorted;
+  }, [activities, eventsFilter]);
+
+  const totalEventPages = Math.ceil(filteredActivities.length / EVENTS_PAGE_SIZE) || 1;
+  const safeEventPage = Math.min(eventsPage, totalEventPages);
+  const paginatedActivities = useMemo(() => {
+    return filteredActivities.slice(
+      (safeEventPage - 1) * EVENTS_PAGE_SIZE,
+      safeEventPage * EVENTS_PAGE_SIZE
+    );
+  }, [filteredActivities, safeEventPage, EVENTS_PAGE_SIZE]);
 
   // Booking and Demo Payment flow state
   const [bookingActivityId, setBookingActivityId] = useState<string | null>(null);
@@ -755,28 +789,55 @@ export default function StudentWorkspacePage() {
   // UNAUTHENTICATED SESSION GUARD
   if (!isAuthenticated || !currentUser) {
     return (
-      <div className="min-h-screen bg-[#F7F8FA] flex flex-col items-center justify-center p-6 text-center font-sans selection:bg-[#E8F0FF] selection:text-[#0047AB]">
-        <div className="max-w-md w-full bg-white rounded-3xl p-8 shadow-xl border border-[#E5E7EB]">
-          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-[#E8F0FF] text-[#0047AB] text-3xl font-black mb-4">
-            🔒
+      <div className="min-h-screen bg-[#F7F8FA] flex flex-col font-sans selection:bg-[#E8F0FF] selection:text-[#0047AB]">
+        {/* Sticky Top Header with Back to Home Navigation */}
+        <header className="sticky top-0 z-40 border-b border-[#E5E7EB] bg-white">
+          <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+            <Link href="/" className="flex items-center gap-2 group">
+              <span className="w-8 h-8 rounded-lg bg-[#0047AB] text-white flex items-center justify-center font-bold text-base transition group-hover:scale-105">
+                S
+              </span>
+              <span className="text-xl font-bold tracking-tight text-[#0A0A0A]">
+                Skyline<span className="text-[#0047AB]">.</span>
+              </span>
+            </Link>
+            <Link
+              href="/"
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-[#64748B] hover:text-[#0047AB] transition px-3 py-1.5 rounded-lg hover:bg-[#F7F8FA]"
+            >
+              ← Back to Home
+            </Link>
           </div>
-          <span className="inline-block rounded-full bg-[#E8F0FF] px-3.5 py-1 text-xs font-bold text-[#0047AB] uppercase tracking-wider">
-            Authentication Required
-          </span>
-          <h1 className="mt-4 text-2xl font-black text-[#0A0A0A]">
-            Sign in to Skyline
-          </h1>
-          <p className="mt-3 text-sm text-[#64748B] leading-relaxed">
-            The Student Workspace (`/me`) contains your personal membership identity pass,
-            registered event tickets, and merchandise orders.
-          </p>
-          <div className="mt-6 flex flex-col gap-3">
-            <Link href="/login">
-              <Button className="w-full bg-[#0047AB] hover:bg-[#003785] text-white">Sign in to Skyline</Button>
-            </Link>
-            <Link href="/signup">
-              <Button variant="outline" className="w-full">Create New Account</Button>
-            </Link>
+        </header>
+
+        <div className="flex-1 flex flex-col items-center justify-center p-6 text-center">
+          <div className="max-w-md w-full bg-white rounded-3xl p-8 shadow-xl border border-[#E5E7EB]">
+            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-[#E8F0FF] text-[#0047AB] text-3xl font-black mb-4">
+              🔒
+            </div>
+            <span className="inline-block rounded-full bg-[#E8F0FF] px-3.5 py-1 text-xs font-bold text-[#0047AB] uppercase tracking-wider">
+              Authentication Required
+            </span>
+            <h1 className="mt-4 text-2xl font-black text-[#0A0A0A]">
+              Sign in to Skyline
+            </h1>
+            <p className="mt-3 text-sm text-[#64748B] leading-relaxed">
+              The Student Workspace (`/me`) contains your personal membership identity pass,
+              registered event tickets, and merchandise orders.
+            </p>
+            <div className="mt-6 flex flex-col gap-3">
+              <Link href="/login">
+                <Button className="w-full bg-[#0047AB] hover:bg-[#003785] text-white">Sign in to Skyline</Button>
+              </Link>
+              <Link href="/signup">
+                <Button variant="outline" className="w-full">Create New Account</Button>
+              </Link>
+              <Link href="/">
+                <Button variant="ghost" className="w-full text-xs text-[#64748B] hover:text-[#0A0A0A] font-semibold">
+                  ← Back to Home Page
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
       </div>
@@ -789,7 +850,7 @@ export default function StudentWorkspacePage() {
       <header className="sticky top-0 z-40 border-b border-[#E5E7EB] bg-white">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
           <div className="flex items-center gap-6">
-            <Link href="/" className="flex items-center gap-2 group">
+            <Link href={canAccessDesk ? "/desk" : "/me"} className="flex items-center gap-2 group" title="Return to Dashboard">
               <span className="w-8 h-8 rounded-lg bg-[#0047AB] text-white flex items-center justify-center font-bold text-base transition group-hover:scale-105">
                 S
               </span>
@@ -821,7 +882,7 @@ export default function StudentWorkspacePage() {
             {canAccessDesk && (
               <Link
                 href="/desk"
-                className="hidden sm:inline-flex items-center gap-1.5 rounded-xl bg-[#0A0A0A] px-3.5 py-2 text-xs font-bold text-white transition hover:bg-[#262626]"
+                className="inline-flex items-center gap-1.5 rounded-xl bg-[#0A0A0A] px-3.5 py-2 text-xs font-bold text-white transition hover:bg-[#262626]"
               >
                 <span>🛡️ Club Desk →</span>
               </Link>
@@ -1275,15 +1336,44 @@ export default function StudentWorkspacePage() {
                   Explore and reserve tickets for upcoming Skyline Student Association summits, workshops, and cultural nights.
                 </p>
               </div>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={loadActivities}
-                disabled={loadingActivities}
-                className="self-start sm:self-auto text-xs"
-              >
-                {loadingActivities ? "Refreshing..." : "↻ Refresh Events"}
-              </Button>
+              <div className="flex flex-wrap items-center gap-2">
+                {/* Filter Pills */}
+                <div className="flex items-center gap-1 bg-[#F7F8FA] p-1 rounded-xl border border-[#E5E7EB]">
+                  {(
+                    [
+                      { id: "all", label: `All Events (${activities.length})` },
+                      { id: "upcoming", label: "Upcoming" },
+                      { id: "past", label: "Past Events" },
+                    ] as const
+                  ).map((f) => (
+                    <button
+                      key={f.id}
+                      type="button"
+                      onClick={() => {
+                        setEventsFilter(f.id);
+                        setEventsPage(1);
+                      }}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition ${
+                        eventsFilter === f.id
+                          ? "bg-white text-[#0047AB] border border-[#E5E7EB] shadow-2xs"
+                          : "text-[#64748B] hover:text-[#0A0A0A]"
+                      }`}
+                    >
+                      {f.label}
+                    </button>
+                  ))}
+                </div>
+
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={loadActivities}
+                  disabled={loadingActivities}
+                  className="self-start sm:self-auto text-xs"
+                >
+                  {loadingActivities ? "Refreshing..." : "↻ Refresh Events"}
+                </Button>
+              </div>
             </div>
 
             {/* Loading Indicator */}
@@ -1307,22 +1397,23 @@ export default function StudentWorkspacePage() {
             )}
 
             {/* Empty Events List */}
-            {!loadingActivities && !activitiesError && activities.length === 0 && (
+            {!loadingActivities && !activitiesError && filteredActivities.length === 0 && (
               <div className="rounded-3xl border border-dashed border-[#E5E7EB] bg-white p-12 text-center shadow-xs">
                 <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-[#E8F0FF] text-[#0047AB] text-3xl mb-4">
                   📅
                 </div>
-                <h3 className="text-lg font-bold text-[#0A0A0A]">No Published Events</h3>
+                <h3 className="text-lg font-bold text-[#0A0A0A]">No Events Found</h3>
                 <p className="mt-2 text-xs text-[#64748B] max-w-md mx-auto leading-relaxed">
-                  There are currently no published campus events open for booking. Check back soon for announcements!
+                  No campus events match your selected filter. Try selecting &quot;All Events&quot; or check back soon!
                 </p>
               </div>
             )}
 
             {/* Published Events Grid */}
-            {!loadingActivities && !activitiesError && activities.length > 0 && (
-              <div className="grid gap-6 md:grid-cols-2">
-                {activities.map((event) => {
+            {!loadingActivities && !activitiesError && filteredActivities.length > 0 && (
+              <div className="space-y-6">
+                <div className="grid gap-6 md:grid-cols-2">
+                {paginatedActivities.map((event) => {
                   const isPast = event.startsAt ? new Date(event.startsAt) < new Date() : false;
                   const isSoldOut = event.seatsRemaining !== null && event.seatsRemaining <= 0;
                   const guestPrice = event.publicPricePaise / 100;
@@ -1577,8 +1668,76 @@ export default function StudentWorkspacePage() {
                   );
                 })}
               </div>
-            )}
-          </div>
+
+              {/* Pagination Controls */}
+              {totalEventPages > 1 && (
+                <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-[#E5E7EB]">
+                  <span className="text-xs text-[#64748B]">
+                    Showing{" "}
+                    <span className="font-semibold text-[#0A0A0A]">
+                      {(safeEventPage - 1) * EVENTS_PAGE_SIZE + 1}
+                    </span>{" "}
+                    to{" "}
+                    <span className="font-semibold text-[#0A0A0A]">
+                      {Math.min(safeEventPage * EVENTS_PAGE_SIZE, filteredActivities.length)}
+                    </span>{" "}
+                    of <span className="font-semibold text-[#0A0A0A]">{filteredActivities.length}</span> events
+                  </span>
+
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      disabled={safeEventPage <= 1}
+                      onClick={() => setEventsPage((prev) => Math.max(1, prev - 1))}
+                      className="px-3.5 py-1.5 rounded-lg border border-[#E5E7EB] bg-white text-xs font-semibold text-[#0A0A0A] disabled:opacity-40 disabled:cursor-not-allowed hover:bg-[#F7F8FA] transition"
+                    >
+                      ← Previous
+                    </button>
+
+                    <div className="flex items-center gap-1">
+                      {Array.from({ length: totalEventPages }, (_, i) => i + 1)
+                        .filter((p) => {
+                          if (totalEventPages <= 7) return true;
+                          if (p === 1 || p === totalEventPages) return true;
+                          return Math.abs(p - safeEventPage) <= 1;
+                        })
+                        .map((p, idx, arr) => {
+                          const showEllipsisBefore = idx > 0 && p > arr[idx - 1] + 1;
+                          return (
+                            <React.Fragment key={p}>
+                              {showEllipsisBefore && (
+                                <span className="px-1 text-xs text-[#64748B]">...</span>
+                              )}
+                              <button
+                                type="button"
+                                onClick={() => setEventsPage(p)}
+                                className={`w-8 h-8 rounded-lg text-xs font-semibold transition ${
+                                  safeEventPage === p
+                                    ? "bg-[#0047AB] text-white"
+                                    : "bg-white border border-[#E5E7EB] text-[#0A0A0A] hover:bg-[#F7F8FA]"
+                                }`}
+                              >
+                                {p}
+                              </button>
+                            </React.Fragment>
+                          );
+                        })}
+                    </div>
+
+                    <button
+                      type="button"
+                      disabled={safeEventPage >= totalEventPages}
+                      onClick={() => setEventsPage((prev) => Math.min(totalEventPages, prev + 1))}
+                      className="px-3.5 py-1.5 rounded-lg border border-[#E5E7EB] bg-white text-xs font-semibold text-[#0A0A0A] disabled:opacity-40 disabled:cursor-not-allowed hover:bg-[#F7F8FA] transition"
+                    >
+                      Next →
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
         )}
 
         {/* ============================================================ */}

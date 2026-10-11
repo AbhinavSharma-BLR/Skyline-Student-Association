@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/auth-context";
 
 /**
@@ -18,9 +19,24 @@ import { useAuth } from "@/context/auth-context";
  */
 
 export default function SkylineHomePage() {
-  const { currentUser, isMember, loginAs, duesFormatted } = useAuth();
+  const { currentUser, isMember, loginAs, duesFormatted, isAuthenticated, isLoading } = useAuth();
+  const router = useRouter();
+
+  // If already authenticated and user navigates or goes back to landing page without logging out,
+  // keep them at their user dashboard
+  useEffect(() => {
+    if (!isLoading && isAuthenticated && currentUser) {
+      const targetDashboard =
+        currentUser.role === "officer" || currentUser.role === "treasurer"
+          ? "/desk"
+          : "/me";
+      router.replace(targetDashboard);
+    }
+  }, [isLoading, isAuthenticated, currentUser, router]);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeCategory, setActiveCategory] = useState<"all" | "tech" | "arts" | "leadership">("all");
+  const [eventsPage, setEventsPage] = useState(1);
+  const EVENTS_PER_PAGE = 6;
 
   // Live authoritative events fetched from backend API (/api/v1/activities)
   const [liveActivities, setLiveActivities] = useState<any[]>([]);
@@ -57,7 +73,7 @@ export default function SkylineHomePage() {
   // Format events from live backend activities or baseline demonstration events
   const displayedEvents = React.useMemo(() => {
     if (liveActivities.length > 0) {
-      return liveActivities.map((act) => {
+      const mapped = liveActivities.map((act) => {
         const titleLower = act.title.toLowerCase();
         let cat: "tech" | "arts" | "leadership" = "tech";
         let catLabel = "Conference";
@@ -82,6 +98,7 @@ export default function SkylineHomePage() {
         }
 
         const startDate = act.startsAt ? new Date(act.startsAt) : null;
+        const isPast = startDate ? startDate.getTime() < Date.now() : false;
         const dateStr = startDate
           ? startDate.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })
           : "Nov 15, 2026";
@@ -96,14 +113,26 @@ export default function SkylineHomePage() {
           categoryLabel: catLabel,
           date: dateStr,
           time: timeStr,
+          isPast,
+          startsAt: act.startsAt,
           venue: act.location || "Skyline Campus",
           memberPrice: Math.round(act.memberPricePaise / 100),
           guestPrice: Math.round(act.publicPricePaise / 100),
-          badge,
+          badge: isPast ? "Past Event" : badge,
           description: act.description || "Official campus activity organized by Skyline Student Association.",
           spotsLeft: act.seatsRemaining ?? act.capacity ?? 50,
           coverImageUrl: act.coverImageUrl || getEventCoverImage(act.id, act.title),
         };
+      });
+
+      // Sort upcoming events first (startsAt ascending), then past events (startsAt descending)
+      return mapped.sort((a: any, b: any) => {
+        if (a.isPast === b.isPast) {
+          const timeA = a.startsAt ? new Date(a.startsAt).getTime() : 0;
+          const timeB = b.startsAt ? new Date(b.startsAt).getTime() : 0;
+          return a.isPast ? timeB - timeA : timeA - timeB;
+        }
+        return a.isPast ? 1 : -1;
       });
     }
 
@@ -115,6 +144,7 @@ export default function SkylineHomePage() {
         categoryLabel: "Conference",
         date: "Oct 24, 2026",
         time: "10:00 AM – 5:00 PM",
+        isPast: false,
         venue: "Main Campus Auditorium",
         memberPrice: 150,
         guestPrice: 250,
@@ -131,6 +161,7 @@ export default function SkylineHomePage() {
         categoryLabel: "Arts & Culture",
         date: "Nov 12, 2026",
         time: "6:00 PM – 10:30 PM",
+        isPast: false,
         venue: "Campus Open Amphitheatre",
         memberPrice: 150,
         guestPrice: 250,
@@ -147,6 +178,7 @@ export default function SkylineHomePage() {
         categoryLabel: "Competition",
         date: "Nov 28, 2026",
         time: "9:00 AM – 9:00 PM",
+        isPast: false,
         venue: "Innovation Sandbox, West Wing",
         memberPrice: 0,
         guestPrice: 100,
@@ -163,6 +195,7 @@ export default function SkylineHomePage() {
         categoryLabel: "Hackathon",
         date: "Nov 15, 2026",
         time: "9:00 AM – 9:00 PM",
+        isPast: false,
         venue: "Student Union Grand Hall",
         memberPrice: 250,
         guestPrice: 500,
@@ -175,10 +208,20 @@ export default function SkylineHomePage() {
     ];
   }, [liveActivities]);
 
-  const filteredEvents =
-    activeCategory === "all"
+  const filteredEvents = React.useMemo(() => {
+    return activeCategory === "all"
       ? displayedEvents
       : displayedEvents.filter((e) => e.category === activeCategory);
+  }, [displayedEvents, activeCategory]);
+
+  const totalEventPages = Math.ceil(filteredEvents.length / EVENTS_PER_PAGE) || 1;
+  const safeEventPage = Math.min(eventsPage, totalEventPages);
+  const paginatedEvents = React.useMemo(() => {
+    return filteredEvents.slice(
+      (safeEventPage - 1) * EVENTS_PER_PAGE,
+      safeEventPage * EVENTS_PER_PAGE
+    );
+  }, [filteredEvents, safeEventPage, EVENTS_PER_PAGE]);
 
   return (
     <div className="min-h-screen flex flex-col bg-[#F7F8FA] text-[#0A0A0A] selection:bg-[#E8F0FF] selection:text-[#0047AB]">
@@ -737,7 +780,10 @@ export default function SkylineHomePage() {
               ).map((tab) => (
                 <button
                   key={tab.id}
-                  onClick={() => setActiveCategory(tab.id)}
+                  onClick={() => {
+                    setActiveCategory(tab.id);
+                    setEventsPage(1);
+                  }}
                   className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition ${
                     activeCategory === tab.id
                       ? "bg-white text-[#0047AB] border border-[#E5E7EB] shadow-2xs"
@@ -752,7 +798,7 @@ export default function SkylineHomePage() {
 
           {/* Events Grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {filteredEvents.map((evt) => {
+            {paginatedEvents.map((evt) => {
               const userGetsDiscount = isMember;
               const isGala = evt.id === "evt-02";
 
@@ -839,20 +885,29 @@ export default function SkylineHomePage() {
                         </div>
 
                         <span className="text-[11px] text-amber-300 font-bold">
-                          {evt.spotsLeft} seats left
+                          {evt.isPast ? "Event Concluded" : `${evt.spotsLeft} seats left`}
                         </span>
                       </div>
 
-                      <Link
-                        href={currentUser ? "/me" : "/signup"}
-                        className="w-full block py-2.5 text-center rounded-lg bg-gradient-to-r from-fuchsia-600 via-violet-600 to-indigo-600 hover:from-fuchsia-500 hover:via-violet-500 hover:to-indigo-500 text-white text-xs font-bold tracking-wide shadow-md shadow-fuchsia-950/60 border border-fuchsia-400/40 transition-all"
-                      >
-                        {currentUser
-                          ? isMember
-                            ? "Claim Member Ticket →"
-                            : "Get Ticket (Regular Rate) →"
-                          : "Register for Event →"}
-                      </Link>
+                      {evt.isPast ? (
+                        <button
+                          disabled
+                          className="w-full block py-2.5 text-center rounded-lg bg-slate-800 text-slate-500 text-xs font-bold tracking-wide cursor-not-allowed border border-slate-700"
+                        >
+                          Event Concluded
+                        </button>
+                      ) : (
+                        <Link
+                          href={currentUser ? "/me" : "/signup"}
+                          className="w-full block py-2.5 text-center rounded-lg bg-gradient-to-r from-fuchsia-600 via-violet-600 to-indigo-600 hover:from-fuchsia-500 hover:via-violet-500 hover:to-indigo-500 text-white text-xs font-bold tracking-wide shadow-md shadow-fuchsia-950/60 border border-fuchsia-400/40 transition-all"
+                        >
+                          {currentUser
+                            ? isMember
+                              ? "Claim Member Ticket →"
+                              : "Get Ticket (Regular Rate) →"
+                            : "Register for Event →"}
+                        </Link>
+                      )}
                     </div>
                   </div>
                 );
@@ -935,26 +990,109 @@ export default function SkylineHomePage() {
                         </span>
                       </div>
 
-                      <span className="text-[11px] text-amber-700 font-medium">
-                        {evt.spotsLeft} seats left
+                      <span className={`text-[11px] font-medium ${evt.isPast ? "text-slate-500" : "text-amber-700"}`}>
+                        {evt.isPast ? "Event Concluded" : `${evt.spotsLeft} seats left`}
                       </span>
                     </div>
 
-                    <Link
-                      href={currentUser ? "/me" : "/signup"}
-                      className="w-full block py-2.5 text-center rounded-lg bg-[#0047AB] text-white text-xs font-semibold tracking-wide hover:bg-[#003785] transition shadow-2xs"
-                    >
-                      {currentUser
-                        ? isMember
-                          ? "Claim Member Ticket →"
-                          : "Get Ticket (Regular Rate) →"
-                        : "Register for Event →"}
-                    </Link>
+                    {evt.isPast ? (
+                      <button
+                        disabled
+                        className="w-full block py-2.5 text-center rounded-lg bg-slate-100 text-slate-400 text-xs font-semibold tracking-wide cursor-not-allowed border border-slate-200"
+                      >
+                        Event Concluded
+                      </button>
+                    ) : evt.spotsLeft <= 0 ? (
+                      <button
+                        disabled
+                        className="w-full block py-2.5 text-center rounded-lg bg-rose-50 text-rose-400 text-xs font-semibold tracking-wide cursor-not-allowed border border-rose-200"
+                      >
+                        Sold Out
+                      </button>
+                    ) : (
+                      <Link
+                        href={currentUser ? "/me" : "/signup"}
+                        className="w-full block py-2.5 text-center rounded-lg bg-[#0047AB] text-white text-xs font-semibold tracking-wide hover:bg-[#003785] transition shadow-2xs"
+                      >
+                        {currentUser
+                          ? isMember
+                            ? "Claim Member Ticket →"
+                            : "Get Ticket (Regular Rate) →"
+                          : "Register for Event →"}
+                      </Link>
+                    )}
                   </div>
                 </div>
               );
             })}
           </div>
+
+          {/* Pagination Controls */}
+          {totalEventPages > 1 && (
+            <div className="mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-[#E5E7EB]">
+              <span className="text-xs text-[#64748B]">
+                Showing{" "}
+                <span className="font-semibold text-[#0A0A0A]">
+                  {(safeEventPage - 1) * EVENTS_PER_PAGE + 1}
+                </span>{" "}
+                to{" "}
+                <span className="font-semibold text-[#0A0A0A]">
+                  {Math.min(safeEventPage * EVENTS_PER_PAGE, filteredEvents.length)}
+                </span>{" "}
+                of <span className="font-semibold text-[#0A0A0A]">{filteredEvents.length}</span> events
+              </span>
+
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  disabled={safeEventPage <= 1}
+                  onClick={() => setEventsPage((prev) => Math.max(1, prev - 1))}
+                  className="px-3.5 py-1.5 rounded-lg border border-[#E5E7EB] bg-white text-xs font-semibold text-[#0A0A0A] disabled:opacity-40 disabled:cursor-not-allowed hover:bg-[#F7F8FA] transition"
+                >
+                  ← Previous
+                </button>
+
+                <div className="flex items-center gap-1">
+                  {Array.from({ length: totalEventPages }, (_, i) => i + 1)
+                    .filter((p) => {
+                      if (totalEventPages <= 7) return true;
+                      if (p === 1 || p === totalEventPages) return true;
+                      return Math.abs(p - safeEventPage) <= 1;
+                    })
+                    .map((p, idx, arr) => {
+                      const showEllipsisBefore = idx > 0 && p > arr[idx - 1] + 1;
+                      return (
+                        <React.Fragment key={p}>
+                          {showEllipsisBefore && (
+                            <span className="px-1 text-xs text-[#64748B]">...</span>
+                          )}
+                          <button
+                            type="button"
+                            onClick={() => setEventsPage(p)}
+                            className={`w-8 h-8 rounded-lg text-xs font-semibold transition ${
+                              safeEventPage === p
+                                ? "bg-[#0047AB] text-white"
+                                : "bg-white border border-[#E5E7EB] text-[#0A0A0A] hover:bg-[#F7F8FA]"
+                            }`}
+                          >
+                            {p}
+                          </button>
+                        </React.Fragment>
+                      );
+                    })}
+                </div>
+
+                <button
+                  type="button"
+                  disabled={safeEventPage >= totalEventPages}
+                  onClick={() => setEventsPage((prev) => Math.min(totalEventPages, prev + 1))}
+                  className="px-3.5 py-1.5 rounded-lg border border-[#E5E7EB] bg-white text-xs font-semibold text-[#0A0A0A] disabled:opacity-40 disabled:cursor-not-allowed hover:bg-[#F7F8FA] transition"
+                >
+                  Next →
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </section>
 

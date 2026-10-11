@@ -6,6 +6,8 @@ import {
   ActivityResponse,
 } from "@/lib/schemas/activities";
 
+import { getEventImageUrl } from "../events/eventImages";
+
 export class ActivityService {
   /**
    * Lists activities. Public users only see published activities.
@@ -26,7 +28,14 @@ export class ActivityService {
       orderBy: { startsAt: "asc" },
     });
 
-    return activities.map((a: any) => this.mapActivityResponse(a));
+    const now = new Date();
+    const upcoming = activities.filter((a: any) => new Date(a.startsAt) >= now);
+    const concluded = activities.filter((a: any) => new Date(a.startsAt) < now);
+    // Sort concluded events newest past event first
+    concluded.sort((a: any, b: any) => new Date(b.startsAt).getTime() - new Date(a.startsAt).getTime());
+
+    const sortedActivities = [...upcoming, ...concluded];
+    return sortedActivities.map((a: any) => this.mapActivityResponse(a));
   }
 
   /**
@@ -155,7 +164,7 @@ export class ActivityService {
       seatsRemaining: remaining,
       memberPricePaise: Number(a.memberPricePaise ?? 0),
       publicPricePaise: Number(a.regularPricePaise ?? 0),
-      coverImageUrl: null,
+      coverImageUrl: getEventImageUrl(a.id),
       createdAt: a.createdAt?.toISOString() ?? new Date().toISOString(),
     };
   }
