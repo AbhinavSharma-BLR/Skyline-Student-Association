@@ -5,7 +5,7 @@ import { claimService } from "@/lib/services/ClaimService";
 import { PayoutClaimRequestSchema } from "@/lib/schemas/claims";
 import { handleApiError, SkylineError } from "@/lib/api/errors";
 
-export async function PATCH(
+async function handlePayout(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
@@ -38,3 +38,6 @@ export async function PATCH(
     return handleApiError(error, requestId);
   }
 }
+
+export const POST = handlePayout;
+export const PATCH = handlePayout;

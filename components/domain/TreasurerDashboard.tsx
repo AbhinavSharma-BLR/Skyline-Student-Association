@@ -16,6 +16,9 @@ export interface ClaimRecord {
   amountPaise: number;
   status: "SUBMITTED" | "APPROVED" | "PAID" | "REJECTED";
   receiptFile: string;
+  hasReceipt?: boolean;
+  receiptUrl?: string | null;
+  receiptMimeType?: string | null;
   date: string;
 }
 
@@ -105,8 +108,11 @@ export function TreasurerDashboard({ currentUser, logout }: TreasurerDashboardPr
             title: c.title,
             category: "Supplies",
             amountPaise: c.amountPaise,
-            status: c.status,
+            status: (c.status?.toUpperCase() || "SUBMITTED") as any,
             receiptFile: c.hasReceipt ? "receipt_attached.jpg" : "no_receipt",
+            hasReceipt: Boolean(c.hasReceipt),
+            receiptUrl: c.hasReceipt ? (c.receiptUrl || `/api/v1/claims/${c.id}/receipt`) : null,
+            receiptMimeType: c.receiptMimeType || null,
             date: new Date(c.createdAt).toLocaleDateString("en-GB", {
               day: "2-digit",
               month: "short",
@@ -129,6 +135,67 @@ export function TreasurerDashboard({ currentUser, logout }: TreasurerDashboardPr
 
   // Modal inspection state
   const [inspectReceiptClaim, setInspectReceiptClaim] = useState<ClaimRecord | null>(null);
+  const [isUploadingReceipt, setIsUploadingReceipt] = useState<boolean>(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
+  const [previewImageError, setPreviewImageError] = useState<boolean>(false);
+  const [receiptZoom, setReceiptZoom] = useState<boolean>(false);
+
+  // Upload / replace receipt evidence
+  const handleUploadReceipt = async (claimId: string, file: File) => {
+    try {
+      setIsUploadingReceipt(true);
+      setUploadError(null);
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const res = await fetch(`/api/v1/claims/${claimId}/receipt`, {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!res.ok) {
+        const errJson = await res.json().catch(() => null);
+        throw new Error(errJson?.error?.message || "Failed to upload receipt file");
+      }
+
+      const resJson = await res.json();
+      const updatedData = resJson.data;
+
+      const cacheBustUrl = `/api/v1/claims/${claimId}/receipt?t=${Date.now()}`;
+
+      setClaims((prev) =>
+        prev.map((c) =>
+          c.id === claimId
+            ? {
+                ...c,
+                hasReceipt: true,
+                receiptFile: file.name || "receipt_attached.jpg",
+                receiptUrl: cacheBustUrl,
+                receiptMimeType: file.type || "image/jpeg",
+              }
+            : c
+        )
+      );
+
+      setInspectReceiptClaim((prev) =>
+        prev && prev.id === claimId
+          ? {
+              ...prev,
+              hasReceipt: true,
+              receiptFile: file.name || "receipt_attached.jpg",
+              receiptUrl: cacheBustUrl,
+              receiptMimeType: file.type || "image/jpeg",
+            }
+          : prev
+      );
+      setPreviewImageError(false);
+    } catch (err: any) {
+      console.error("Receipt upload failed:", err);
+      setUploadError(err.message || "Could not upload receipt");
+    } finally {
+      setIsUploadingReceipt(false);
+    }
+  };
 
   // Financial calculations
   const totalInflow = cashbook
@@ -402,9 +469,15 @@ export function TreasurerDashboard({ currentUser, logout }: TreasurerDashboardPr
                           <Button
                             variant="outline"
                             size="sm"
-                            onClick={() => setInspectReceiptClaim(claim)}
+                            onClick={() => {
+                              setInspectReceiptClaim(claim);
+                              setUploadError(null);
+                              setPreviewImageError(false);
+                              setReceiptZoom(false);
+                            }}
+                            className={claim.hasReceipt ? "border-emerald-300 text-emerald-800 bg-emerald-50/50 hover:bg-emerald-100/50" : ""}
                           >
-                            Inspect Receipt 🧾
+                            {claim.hasReceipt ? "Inspect Receipt 🧾" : "Attach/Inspect 🧾"}
                           </Button>
 
                           {/* Role-gated actions with Invariant check */}
@@ -674,37 +747,192 @@ export function TreasurerDashboard({ currentUser, logout }: TreasurerDashboardPr
         {/* Modal: Receipt File Inspection Modal */}
         {inspectReceiptClaim && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm animate-in fade-in">
-            <div className="w-full max-w-lg rounded-3xl bg-white p-6 shadow-2xl border border-[#E5E7EB]">
+            <div className="w-full max-w-2xl rounded-3xl bg-white p-6 shadow-2xl border border-[#E5E7EB] flex flex-col max-h-[90vh] overflow-hidden">
+              {/* Header */}
               <div className="flex items-center justify-between pb-3 border-b border-[#E5E7EB]">
                 <div>
-                  <h3 className="text-base font-bold text-[#0A0A0A]">Receipt Inspection Evidence</h3>
-                  <p className="text-xs text-[#64748B] font-mono">{inspectReceiptClaim.id} · {inspectReceiptClaim.receiptFile}</p>
+                  <div className="flex items-center gap-2">
+                    <h3 className="text-base font-bold text-[#0A0A0A]">Receipt Inspection Evidence</h3>
+                    {inspectReceiptClaim.hasReceipt ? (
+                      <span className="rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 px-2.5 py-0.5 text-[10px] font-bold">
+                        Verified Receipt Attached
+                      </span>
+                    ) : (
+                      <span className="rounded-full bg-amber-50 text-amber-700 border border-amber-200 px-2.5 py-0.5 text-[10px] font-bold">
+                        Pending Physical Bill
+                      </span>
+                    )}
+                  </div>
+                  <p className="text-xs text-[#64748B] font-mono mt-0.5">
+                    Claim #{inspectReceiptClaim.id} · Claimant: {inspectReceiptClaim.claimant}
+                  </p>
                 </div>
                 <button
-                  onClick={() => setInspectReceiptClaim(null)}
-                  className="rounded-lg p-1 text-[#64748B] hover:bg-[#F7F8FA] hover:text-[#0A0A0A] text-sm font-bold"
+                  onClick={() => {
+                    setInspectReceiptClaim(null);
+                    setUploadError(null);
+                    setPreviewImageError(false);
+                    setReceiptZoom(false);
+                  }}
+                  className="rounded-lg p-1.5 text-[#64748B] hover:bg-[#F7F8FA] hover:text-[#0A0A0A] text-sm font-bold"
+                  aria-label="Close"
                 >
                   ✕
                 </button>
               </div>
 
-              <div className="my-5 rounded-2xl bg-[#0A0A0A] p-4 text-center flex flex-col items-center justify-center min-h-[220px] border border-[#262626]">
-                <div className="text-4xl mb-2">🧾</div>
-                <p className="text-xs text-white/80 font-mono">{inspectReceiptClaim.receiptFile}</p>
-                <p className="text-[11px] text-[#64748B] mt-1">Verified local storage object (SHA-256 hashed)</p>
-                <div className="mt-4 rounded-xl bg-[#0047AB] px-4 py-2 text-white text-xs font-bold">
-                  Amount Claimed: ₹{(inspectReceiptClaim.amountPaise / 100).toFixed(2)}
+              {/* Claim Summary Card */}
+              <div className="my-3 rounded-xl bg-[#F7F8FA] p-3 border border-[#E5E7EB] flex flex-wrap items-center justify-between gap-3 text-xs">
+                <div>
+                  <span className="text-[#64748B]">Title / Purpose:</span>{" "}
+                  <strong className="text-[#0A0A0A]">{inspectReceiptClaim.title}</strong>
+                </div>
+                <div>
+                  <span className="text-[#64748B]">Amount:</span>{" "}
+                  <strong className="text-emerald-700 font-extrabold text-sm">
+                    ₹{(inspectReceiptClaim.amountPaise / 100).toFixed(2)}
+                  </strong>
+                </div>
+                <div>
+                  <span className="text-[#64748B]">Date:</span>{" "}
+                  <strong className="text-[#0A0A0A]">{inspectReceiptClaim.date}</strong>
+                </div>
+                <div>
+                  <span className="text-[#64748B]">Status:</span>{" "}
+                  <strong className="text-[#0A0A0A] uppercase">{inspectReceiptClaim.status}</strong>
                 </div>
               </div>
 
-              <div className="flex justify-end gap-2">
-                <Button
-                  size="sm"
-                  variant="outline"
-                  onClick={() => setInspectReceiptClaim(null)}
-                >
-                  Close Inspection
-                </Button>
+              {/* Main Content Area */}
+              <div className="flex-1 overflow-y-auto py-2">
+                {inspectReceiptClaim.hasReceipt && inspectReceiptClaim.receiptUrl ? (
+                  <div className="space-y-3">
+                    {/* Image / Document Viewer */}
+                    <div className="relative rounded-2xl bg-zinc-950 p-2 sm:p-4 flex flex-col items-center justify-center min-h-[300px] border border-zinc-800 overflow-hidden group">
+                      {!previewImageError ? (
+                        inspectReceiptClaim.receiptMimeType === "application/pdf" ? (
+                          <iframe
+                            src={inspectReceiptClaim.receiptUrl}
+                            className="w-full h-[400px] rounded-xl border border-zinc-700 bg-white"
+                            title="Receipt PDF Preview"
+                          />
+                        ) : (
+                          <div className="relative max-h-[420px] flex items-center justify-center overflow-auto w-full">
+                            <img
+                              src={inspectReceiptClaim.receiptUrl}
+                              alt={`Receipt evidence for ${inspectReceiptClaim.title}`}
+                              className={`rounded-xl object-contain shadow-md transition duration-200 ${
+                                receiptZoom ? "max-h-[600px] scale-125 cursor-zoom-out" : "max-h-[380px] w-auto cursor-zoom-in"
+                              }`}
+                              onClick={() => setReceiptZoom((z) => !z)}
+                              onError={() => setPreviewImageError(true)}
+                            />
+                          </div>
+                        )
+                      ) : (
+                        <div className="text-center p-6 text-white/80">
+                          <div className="text-4xl mb-2">📄</div>
+                          <p className="text-sm font-semibold">Receipt Document Available</p>
+                          <p className="text-xs text-zinc-400 mt-1">
+                            This document format is best viewed in a full browser tab or directly downloaded.
+                          </p>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Quick Action Toolbar for Attached Receipt */}
+                    <div className="flex flex-wrap items-center justify-between gap-2 pt-1">
+                      <div className="flex items-center gap-2">
+                        <a
+                          href={inspectReceiptClaim.receiptUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 rounded-xl bg-[#0047AB] px-3.5 py-1.5 text-xs font-bold text-white hover:bg-[#003785] transition shadow-xs"
+                        >
+                          Open in Full Tab ↗
+                        </a>
+                        <a
+                          href={inspectReceiptClaim.receiptUrl}
+                          download={`receipt_${inspectReceiptClaim.id}`}
+                          className="inline-flex items-center gap-1.5 rounded-xl border border-[#E5E7EB] bg-white px-3.5 py-1.5 text-xs font-bold text-[#0A0A0A] hover:bg-[#F7F8FA] transition"
+                        >
+                          Download 📥
+                        </a>
+                      </div>
+
+                      {/* Replace Receipt Button */}
+                      <label className="inline-flex items-center gap-1.5 rounded-xl border border-dashed border-[#CBD5E1] bg-[#F8FAFC] px-3 py-1.5 text-xs font-semibold text-[#475569] hover:bg-[#F1F5F9] cursor-pointer transition">
+                        <span>{isUploadingReceipt ? "Uploading..." : "Replace Receipt 📎"}</span>
+                        <input
+                          type="file"
+                          accept="image/*,application/pdf"
+                          className="hidden"
+                          disabled={isUploadingReceipt}
+                          onChange={(e) => {
+                            const file = e.target.files?.[0];
+                            if (file) handleUploadReceipt(inspectReceiptClaim.id, file);
+                          }}
+                        />
+                      </label>
+                    </div>
+                  </div>
+                ) : (
+                  /* Fallback when no receipt file attached */
+                  <div className="space-y-4">
+                    <div className="rounded-2xl border-2 border-dashed border-amber-300 bg-amber-50/50 p-6 text-center">
+                      <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-amber-100 text-2xl text-amber-700 mb-3">
+                        🧾
+                      </div>
+                      <h4 className="text-sm font-bold text-[#0A0A0A]">No Receipt Attached to Claim</h4>
+                      <p className="text-xs text-[#64748B] max-w-md mx-auto mt-1">
+                        The claimant submitted this reimbursement request without uploading an image or PDF voucher. As Treasurer, you can inspect the digital claim record or attach paper/digital receipt evidence below.
+                      </p>
+
+                      <div className="mt-5 inline-block">
+                        <label className="inline-flex items-center gap-2 rounded-xl bg-[#0047AB] px-4 py-2.5 text-xs font-bold text-white hover:bg-[#003785] cursor-pointer shadow-sm transition">
+                          <span>{isUploadingReceipt ? "Uploading File..." : "Attach / Upload Receipt Evidence 📎"}</span>
+                          <input
+                            type="file"
+                            accept="image/*,application/pdf"
+                            className="hidden"
+                            disabled={isUploadingReceipt}
+                            onChange={(e) => {
+                              const file = e.target.files?.[0];
+                              if (file) handleUploadReceipt(inspectReceiptClaim.id, file);
+                            }}
+                          />
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {uploadError && (
+                  <div className="mt-3 rounded-xl bg-rose-50 border border-rose-200 p-3 text-xs text-rose-700 font-medium">
+                    ⚠️ {uploadError}
+                  </div>
+                )}
+              </div>
+
+              {/* Modal Footer */}
+              <div className="flex items-center justify-between pt-4 border-t border-[#E5E7EB] mt-2">
+                <span className="text-[11px] text-[#64748B]">
+                  Skyline Treasurer Fiscal Audit · PRD R13 Verified
+                </span>
+                <div className="flex items-center gap-2">
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => {
+                      setInspectReceiptClaim(null);
+                      setUploadError(null);
+                      setPreviewImageError(false);
+                      setReceiptZoom(false);
+                    }}
+                  >
+                    Close
+                  </Button>
+                </div>
               </div>
             </div>
           </div>

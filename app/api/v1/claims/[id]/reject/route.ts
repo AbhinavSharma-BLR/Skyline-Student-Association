@@ -5,7 +5,7 @@ import { claimService } from "@/lib/services/ClaimService";
 import { ReviewClaimRequestSchema } from "@/lib/schemas/claims";
 import { handleApiError } from "@/lib/api/errors";
 
-export async function PATCH(
+async function handleReject(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
@@ -32,3 +32,6 @@ export async function PATCH(
     return handleApiError(error, requestId);
   }
 }
+
+export const POST = handleReject;
+export const PATCH = handleReject;

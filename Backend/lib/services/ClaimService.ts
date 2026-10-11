@@ -65,7 +65,7 @@ export class ClaimService {
       include: {
         claimant: { select: { id: true, name: true } },
         reviewer: { select: { id: true, name: true } },
-        receiptFile: { select: { id: true } },
+        receiptFile: { select: { id: true, mimeType: true } },
       },
       orderBy: { createdAt: "desc" },
     });
@@ -81,7 +81,7 @@ export class ClaimService {
       include: {
         claimant: { select: { id: true, name: true } },
         reviewer: { select: { id: true, name: true } },
-        receiptFile: { select: { id: true } },
+        receiptFile: { select: { id: true, mimeType: true } },
       },
       orderBy: { createdAt: "desc" },
     });
@@ -270,7 +270,8 @@ export class ClaimService {
     userId: string,
     claimId: string,
     buffer: Buffer,
-    filename: string
+    filename: string,
+    isTreasurer: boolean = false
   ): Promise<ClaimResponse> {
     const claim = await (prisma as any).claim.findUnique({
       where: { id: claimId },
@@ -280,15 +281,15 @@ export class ClaimService {
       throw new SkylineError("NOT_FOUND", "Claim not found", 404);
     }
 
-    if (claim.claimantId !== userId) {
+    if (claim.claimantId !== userId && !isTreasurer) {
       throw new SkylineError(
         "FORBIDDEN",
-        "Only the claim creator can attach receipts",
+        "Only the claim creator or club treasurers can attach receipts",
         403
       );
     }
 
-    if (claim.status !== "submitted") {
+    if (claim.status !== "submitted" && !isTreasurer) {
       throw new SkylineError(
         "CONFLICT",
         "Receipts cannot be modified after a claim has entered review or approval",
@@ -320,7 +321,7 @@ export class ClaimService {
         include: {
           claimant: { select: { id: true, name: true } },
           reviewer: { select: { id: true, name: true } },
-          receiptFile: { select: { id: true } },
+          receiptFile: { select: { id: true, mimeType: true } },
         },
       });
     });
@@ -385,6 +386,8 @@ export class ClaimService {
       reviewNote: c.reviewNote ?? null,
       payoutRef: c.payoutRef ?? null,
       hasReceipt: Boolean(c.receiptFile),
+      receiptUrl: c.receiptFile ? `/api/v1/claims/${c.id}/receipt` : null,
+      receiptMimeType: c.receiptFile?.mimeType ?? null,
       reviewedAt: c.reviewedAt ? c.reviewedAt.toISOString() : null,
       paidAt: c.paidAt ? c.paidAt.toISOString() : null,
       createdAt: c.createdAt.toISOString(),

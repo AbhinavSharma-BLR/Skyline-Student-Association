@@ -428,9 +428,10 @@ export default function StudentWorkspacePage() {
             month: "short",
             year: "numeric",
           }),
-          status: c.status,
+          status: (c.status?.toUpperCase() || "SUBMITTED") as any,
           receiptName: c.hasReceipt ? "receipt.jpg" : "no_receipt",
-          receiptType: "image",
+          receiptType: c.receiptMimeType === "application/pdf" ? "pdf" : "image",
+          receiptUrl: c.hasReceipt ? (c.receiptUrl || `/api/v1/claims/${c.id}/receipt`) : undefined,
         }));
         setClaims(liveClaims);
       } else {
@@ -686,6 +687,20 @@ export default function StudentWorkspacePage() {
 
       const json = await res.json();
       const created = json?.data;
+
+      // Upload attached physical receipt file if present
+      if (created?.id && uploadedReceipt?.file) {
+        try {
+          const formData = new FormData();
+          formData.append("file", uploadedReceipt.file);
+          await fetch(`/api/v1/claims/${created.id}/receipt`, {
+            method: "POST",
+            body: formData,
+          });
+        } catch (uploadErr) {
+          console.error("Failed to attach receipt to claim:", uploadErr);
+        }
+      }
 
       const newClaim: ClaimItem = {
         id: created?.id || `CLM-${Math.floor(100 + Math.random() * 900)}`,

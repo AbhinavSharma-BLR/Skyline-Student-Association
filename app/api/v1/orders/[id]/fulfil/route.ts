@@ -4,7 +4,7 @@ import { requireAuth, requireRole } from "@/lib/auth/session";
 import { orderService } from "@/lib/services/OrderService";
 import { handleApiError } from "@/lib/api/errors";
 
-export async function PATCH(
+async function handleFulfil(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
@@ -20,3 +20,6 @@ export async function PATCH(
     return handleApiError(error, requestId);
   }
 }
+
+export const POST = handleFulfil;
+export const PATCH = handleFulfil;

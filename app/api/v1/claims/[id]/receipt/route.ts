@@ -26,7 +26,7 @@ export async function GET(
       status: 200,
       headers: {
         "Content-Type": file.mimeType,
-        "Content-Disposition": `attachment; filename="${file.filename}"`,
+        "Content-Disposition": `inline; filename="${file.filename}"`,
         "Cache-Control": "private, no-cache, no-store, must-revalidate",
       },
     });
@@ -60,11 +60,18 @@ export async function POST(
     const arrayBuffer = await fileBlob.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
 
+    const isTreasurer = Boolean(
+      await (prisma as any).role.findFirst({
+        where: { userId: session.user.id, role: "treasurer" },
+      })
+    );
+
     const updatedClaim = await claimService.uploadReceipt(
       session.user.id,
       id,
       buffer,
-      originalFilename
+      originalFilename,
+      isTreasurer
     );
 
     return NextResponse.json({ data: updatedClaim }, { status: 201 });

@@ -47,6 +47,8 @@ export const ClaimResponseSchema = z.object({
   reviewNote: z.string().nullable(),
   payoutRef: z.string().nullable(),
   hasReceipt: z.boolean(),
+  receiptUrl: z.string().nullable().optional(),
+  receiptMimeType: z.string().nullable().optional(),
   reviewedAt: z.string().nullable(),
   paidAt: z.string().nullable(),
   createdAt: z.string(),
