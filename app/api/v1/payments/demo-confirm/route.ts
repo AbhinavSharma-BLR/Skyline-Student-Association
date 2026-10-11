@@ -11,7 +11,7 @@ import { OrderService } from "@/lib/services/OrderService";
 const DemoConfirmRequestSchema = z.object({
   referenceId: z.string().min(1, "referenceId is required"),
   category: z.enum(["membership", "booking", "order"]),
-  amountPaise: z.number().int().positive("amountPaise must be a positive integer in paise"),
+  amountPaise: z.number().int().positive("amountPaise must be a positive integer in paise").optional(),
   idempotencyKey: z.string().optional(),
 });
 
@@ -82,14 +82,8 @@ export async function POST(request: NextRequest) {
         throw new SkylineError("FORBIDDEN", "You are not authorized to confirm this membership", 403);
       }
 
-      // Enforce dues amount verification
-      if (Number(membership.period.duesPaise) !== amountPaise) {
-        throw new SkylineError(
-          "VALIDATION_ERROR",
-          `Payment amount (${amountPaise}) does not match period dues (${membership.period.duesPaise})`,
-          422
-        );
-      }
+      // Calculate authoritative dues amount directly from stored membership period record (server owns prices)
+      const authoritativeAmountPaise = Number(membership.period.duesPaise);
 
       // Idempotency check: if already active, return existing confirmation without duplicate activation
       if (membership.status === "active") {
@@ -99,7 +93,7 @@ export async function POST(request: NextRequest) {
               status: "already_confirmed",
               referenceId: membership.id,
               category: "membership",
-              amountPaise,
+              amountPaise: authoritativeAmountPaise,
               isSimulated: true,
               mode: "demo",
               paymentRef: `DEMO_PAID_${membership.id}`,
@@ -137,7 +131,7 @@ export async function POST(request: NextRequest) {
           );
         }
 
-        // Create or link purchase record
+        // Create or link purchase record with authoritative amount
         let purchase = await tx.purchase?.findUnique?.({
           where: { membershipId: membership.id },
         });
@@ -147,7 +141,7 @@ export async function POST(request: NextRequest) {
             data: {
               userId: session.user.id,
               membershipId: membership.id,
-              amountPaise: BigInt(amountPaise),
+              amountPaise: BigInt(authoritativeAmountPaise),
               state: "confirmed",
               pricingBasis: "dues",
             },
@@ -159,14 +153,14 @@ export async function POST(request: NextRequest) {
           });
         }
 
-        // Create payment attempt
+        // Create payment attempt with authoritative amount
         if (purchase && tx.paymentAttempt?.create) {
           const attempt = await tx.paymentAttempt.create({
             data: {
               purchaseId: purchase.id,
               provider: "demo",
               providerRef: paymentRef,
-              amountPaise: BigInt(amountPaise),
+              amountPaise: BigInt(authoritativeAmountPaise),
               state: "confirmed",
               confirmedAt: new Date(),
             },
@@ -178,7 +172,7 @@ export async function POST(request: NextRequest) {
               data: {
                 direction: "INFLOW",
                 category: "dues",
-                amountPaise: BigInt(amountPaise),
+                amountPaise: BigInt(authoritativeAmountPaise),
                 paymentAttemptId: attempt.id,
                 recordedById: session.user.id,
                 occurredAt: new Date(),
@@ -203,7 +197,7 @@ export async function POST(request: NextRequest) {
             status: result.status,
             referenceId: result.membership.id,
             category: "membership",
-            amountPaise,
+            amountPaise: authoritativeAmountPaise,
             isSimulated: true,
             mode: "demo",
             paymentRef,

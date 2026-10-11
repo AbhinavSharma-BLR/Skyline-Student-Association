@@ -38,6 +38,14 @@ export const auth = betterAuth({
   },
   rateLimit: {
     enabled: isRateLimitEnabled(),
+    window: 60,
+    max: 100,
+    customRules: {
+      "/sign-in/email": {
+        window: 60,
+        max: 100,
+      },
+    },
   },
   session: {
     expiresIn: 60 * 60 * 24 * 7, // 7 days session lifetime

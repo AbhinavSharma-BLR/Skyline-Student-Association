@@ -42,10 +42,18 @@
       "@/backend/*": [
         "./Backend/*"
       ],
-      // Map @/* to Backend/* or root directory
+      // Map @/components/* to ./components/*
+      "@/components/*": [
+        "./components/*"
+      ],
+      // Map @/context/* to ./context/*
+      "@/context/*": [
+        "./context/*"
+      ],
+      // Map @/* to root directory or Backend/*
       "@/*": [
-        "./Backend/*",
-        "./*"
+        "./*",
+        "./Backend/*"
       ]
     },
     // List of plugins for Next.js TypeScript language service

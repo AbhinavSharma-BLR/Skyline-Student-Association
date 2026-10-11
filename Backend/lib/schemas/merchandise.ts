@@ -85,6 +85,8 @@ export type OrderItemResponse = z.infer<typeof OrderItemResponseSchema>;
 export const OrderResponseSchema = z.object({
   id: z.string(),
   userId: z.string(),
+  userName: z.string().optional(),
+  userEmail: z.string().optional(),
   status: OrderStatusSchema,
   totalPaise: z.number().int(),
   items: z.array(OrderItemResponseSchema),

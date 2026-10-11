@@ -442,6 +442,7 @@ export class OrderService {
   async listAllOrders(): Promise<OrderResponse[]> {
     const orders = await (prisma as any).order.findMany({
       include: {
+        user: true,
         purchase: true,
         items: {
           include: {
@@ -465,6 +466,8 @@ export class OrderService {
       return {
         id: o.id,
         userId: o.userId,
+        userName: o.user?.name || "Student",
+        userEmail: o.user?.email || "student@skyline.edu",
         status,
         totalPaise,
         items: o.items.map((i: any) => ({

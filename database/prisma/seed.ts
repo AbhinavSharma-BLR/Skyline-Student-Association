@@ -151,6 +151,81 @@ async function main() {
   });
   console.log(`  ✔ Activity: ${activity.title} (member: ₹250, regular: ₹500)`);
 
+  const summit = await prisma.activity.upsert({
+    where: { id: "evt-01" },
+    create: {
+      id: "evt-01",
+      kind: "event",
+      title: "Skyline Tech & Innovation Summit 2026",
+      description: "Keynotes from notable industry alumni, student technology pitch showcase, and networking luncheon kit.",
+      venue: "Main Campus Auditorium",
+      startsAt: new Date("2026-10-24T10:00:00Z"),
+      endsAt: new Date("2026-10-24T17:00:00Z"),
+      capacity: 50,
+      memberPricePaise: BigInt(15000),
+      regularPricePaise: BigInt(25000),
+      published: true,
+      ticketed: true,
+      createdById: officer.id,
+    },
+    update: {
+      capacity: 50,
+      memberPricePaise: BigInt(15000),
+      regularPricePaise: BigInt(25000),
+    },
+  });
+  console.log(`  ✔ Activity: ${summit.title} (member: ₹150, regular: ₹250)`);
+
+  const gala = await prisma.activity.upsert({
+    where: { id: "evt-02" },
+    create: {
+      id: "evt-02",
+      kind: "event",
+      title: "Skyline Cultural Gala & Music Festival",
+      description: "An evening of student acoustic bands, classical performance troupes, artisan campus stalls, and live showcase.",
+      venue: "Campus Open Amphitheatre",
+      startsAt: new Date("2026-11-12T18:00:00Z"),
+      endsAt: new Date("2026-11-12T22:30:00Z"),
+      capacity: 100,
+      memberPricePaise: BigInt(15000),
+      regularPricePaise: BigInt(25000),
+      published: true,
+      ticketed: true,
+      createdById: officer.id,
+    },
+    update: {
+      capacity: 100,
+      memberPricePaise: BigInt(15000),
+      regularPricePaise: BigInt(25000),
+    },
+  });
+  console.log(`  ✔ Activity: ${gala.title} (member: ₹150, regular: ₹250)`);
+
+  const hackSprint = await prisma.activity.upsert({
+    where: { id: "evt-03" },
+    create: {
+      id: "evt-03",
+      kind: "event",
+      title: "Emerging Leaders Hackathon & Case Sprint",
+      description: "12-hour collaborative design and strategy sprint addressing campus initiatives with direct officer mentorship.",
+      venue: "Innovation Sandbox, West Wing",
+      startsAt: new Date("2026-11-28T09:00:00Z"),
+      endsAt: new Date("2026-11-28T21:00:00Z"),
+      capacity: 30,
+      memberPricePaise: BigInt(0),
+      regularPricePaise: BigInt(10000),
+      published: true,
+      ticketed: true,
+      createdById: officer.id,
+    },
+    update: {
+      capacity: 30,
+      memberPricePaise: BigInt(0),
+      regularPricePaise: BigInt(10000),
+    },
+  });
+  console.log(`  ✔ Activity: ${hackSprint.title} (member: ₹0, regular: ₹100)`);
+
   // 6. Assign Staff Capability for Check-In
   await prisma.activityStaff.upsert({
     where: {

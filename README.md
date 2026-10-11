@@ -1,10 +1,11 @@
 # README — Skyline Student Association ERP
 
-> **Status: Active & Live Database Integrated.**
-> Real PostgreSQL database running on local machine, connected with Prisma ORM, Better Auth, and 41 Next.js 15 App Router API routes.
-> Verified with 101 automated tests (75 unit tests + 26 live database integration tests).
+> **Status: Fully Integrated & Production-Ready.**
+> Unified Next.js 15 App Router application on a single origin (`http://localhost:3000`) serving both modern frontend pages and 41 backend API routes (47 total application routes).
+> Powered by local PostgreSQL 16 (port 5432) via Prisma ORM 6 and Better Auth.
+> Verified with automated live HTTP E2E tests, 80 unit tests across 10 suites, and full database persistence.
 
-See [`brain.md`](./brain.md) for current state, architecture, and verification evidence.
+See [`brain.md`](./brain.md) for architecture, verification evidence, and demo walkthrough.
 
 ---
 
@@ -12,15 +13,16 @@ See [`brain.md`](./brain.md) for current state, architecture, and verification e
 
 Skyline is a full-stack club ERP for a single student association. It connects memberships, ticketed events, merchandise orders, volunteer tasks, expense reimbursements, announcements and a committee handover tool in one responsive web application.
 
-**Three workspaces, one database:**
+**Three workspaces, one application, one database:**
 
-| Workspace | Audience | URL prefix |
-|---|---|---|
-| Discover Skyline | Public | `/` |
-| My Skyline | Signed-in students | `/me` |
-| Club Desk | Officers and treasurer | `/desk` |
+| Workspace | Audience | Route | Capabilities |
+|---|---|---|---|
+| Discover Skyline | Public | `/` | Hero, event showcase, dynamic pricing breakdown, login |
+| Student Workspace | Signed-in students | `/me` | Digital membership pass, demo dues activation, tickets, orders, reimbursement claims |
+| Club Desk | Officers & Treasurer | `/desk` | Server-verified RBAC: Door QR scanner, capacity, volunteer tasks (Officer) & live cashbook ledger, claims review, payouts (Treasurer) |
+| Ticket Showcase | All | `/demo` | 3D Holographic Foil Pass visualizer |
 
-**Key differentiators:** Activity Hub (one page connects tickets/tasks/money/updates), Financial Evidence Panel (totals drill down to source records), Committee Handover Snapshot (dated, frozen, printable).
+**Key differentiators:** Real-time integer paise cashbook ledger, atomic payment confirmations, PRD Invariant #9 (self-approval & self-payout strictly forbidden), and live Better Auth session management.
 
 ---
 
@@ -177,6 +179,10 @@ Demo accounts are hashed and managed via Better Auth. Credentials are configured
 | **Student (Member)** | `student@skyline.edu` | `DEMO_STUDENT_PASSWORD` | Active member profile, can book events, buy merchandise, submit reimbursement claims |
 | **Club Officer** | `officer@skyline.edu` | `DEMO_OFFICER_PASSWORD` | Can manage activities, variant stock, volunteer tasks, announcements, desk pickup |
 | **Club Treasurer** | `treasurer@skyline.edu` | `DEMO_TREASURER_PASSWORD` | Can review reimbursement claims, execute payouts, inspect cashbook ledger & summaries |
+
+**Security Invariants:**
+- **Demo Fast-Fill Restricton:** Demo fast-fill buttons and preset accounts on `/login` are restricted strictly to local demo environments (`NODE_ENV !== "production" || NEXT_PUBLIC_DEMO_MODE === "true"`). Public production deployments do not render fast-fill buttons or bundle privileged credentials into client bundles. Server-side role enforcement via PostgreSQL and Better Auth session cookies remains active at all times.
+- **Email Verification Semantics:** Self-service student registration creates accounts with `emailVerified: false`. Account creation does not imply verified email ownership until confirmed through an approved institutional email confirmation mechanism.
 
 To seed demo data without mutating or overwriting existing accounts or passwords:
 ```bash

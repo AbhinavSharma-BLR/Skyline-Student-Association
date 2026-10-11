@@ -7,7 +7,7 @@
 
 ## Project Purpose
 
-**Skyline Student Association ERP** — one web platform connecting memberships, ticketed events, merchandise, volunteer tasks, reimbursements, announcements and committee handovers for a single student club.
+**Skyline Student Association ERP** — one unified web platform connecting memberships, ticketed events, merchandise, volunteer tasks, reimbursements, announcements and committee handovers for a single student club.
 
 **Product promise:** Every campus activity has a responsible person, every payment has a source, and every incoming committee inherits a clear picture.
 
@@ -15,8 +15,19 @@
 
 ## Current Phase
 
-**Phase:** Backend + Local PostgreSQL Integration Complete & Verified  
-**Status:** Real local PostgreSQL database running on port 5432 with Prisma ORM 6 and Better Auth. All 27 models, migrations, domain constraints, partial unique indexes, and seed scripts applied. Complete application workflows verified with 101 automated tests (75 unit + 26 live database). Production server running on http://localhost:3000.
+**Phase:** Integrated Demo Finalized & Guest Student Workspace Verified
+**Status:** 
+- Unified Next.js 15 App Router application on single origin (`http://localhost:3000`).
+- Clean Guest Header: "Guest Account · Dues Pending", greeting set to "Welcome, Guest!", developer annotations removed, "View Perks & Breakdown" button removed, and "Activate Membership" button preserved with database price.
+- Workspace Navigation Order: Exactly `1. Guest Pass & Dues`, `2. Events`, `3. My Tickets (count)`, `4. Merch Orders (count)`. Reimbursements tab cleanly excluded for guests.
+- Real Events Section: Lists published club events from `/api/v1/activities` with title, date/time, venue, seats remaining, member savings, and dynamic price buttons (`Book Ticket · ₹500`).
+- Real Ticket Issuance: Connected to `POST /api/v1/bookings` -> demo-payment modal -> `POST /api/v1/bookings/[id]/confirm`, refreshing tickets, switching to My Tickets tab, and badge labelled "Booked Ticket".
+- Clean My Tickets: Removed "Demo: Buy Ticket as Guest", primary "Browse Campus Events" button switching to Events section, clean empty state when no tickets exist.
+- Dynamic Membership Savings Navigation: "Activate Membership to Save ₹..." smoothly scrolls to `#annual-dues-card` without accidental activation.
+- Truthful Merchandise Visibility: Purchased merchandise showcase rendered ONLY when `confirmedOrders.length > 0`. Zero confirmed purchases hides showcase cleanly and offers catalog browsing.
+- Internal Annotations Removed: Stripped all internal PRD annotations (`PRD §...`, `R05`, `R13`, `R14`, `R15`, `Phase F`) from UI strings across `/me` and `/desk`.
+- Real PostgreSQL 16 active on `localhost:5432` with database `skyline_dev` preserved without reseeding.
+- All 80 unit tests across 10 suites passing, clean TypeScript typecheck (`tsc --noEmit`), and verified Next.js production build (`next build`).
 
 ---
 
@@ -169,6 +180,54 @@ Status: **Complete.**
 | Unit & Invariant Tests | 2026-10-10 | 80 passed, 0 failed (`npm run test:unit`) |
 | Live PostgreSQL Workflows | 2026-10-10 | 27 passed, 0 failed (`npm run test:integration`) |
 
+
+---
+
+## Evaluator Live Browser Demo Walkthrough
+
+The integrated application runs on a single origin at **`http://localhost:3000`** backed by PostgreSQL on `localhost:5432`.
+
+### Step 1: Homepage & Brand Inspection (`/`)
+1. Open `http://localhost:3000` in the browser.
+2. Confirm the Skyline visual identity (Deep Cobalt Blue `#0047AB`, clean architecture, interactive cards).
+3. Confirm public event tickets display member vs. guest pricing comparisons.
+
+### Step 2: Student Login & Session Verification (`/login`)
+1. Click **Sign in** or navigate to `http://localhost:3000/login`.
+2. Click the demo fast-fill button: **⚡ Student (Sam Student)**.
+3. Credentials populated: `student@skyline.edu` / `StudentPassword123!`.
+4. Click **Sign in to Skyline** → redirects to `http://localhost:3000/me`.
+5. Verify authenticated session survives page refresh (F5).
+
+### Step 3: Membership Dues Activation via Demo Payment (`/me`)
+1. In Student Workspace (`/me`), observe the membership status card.
+2. If membership is unactivated, click **⚡ Activate Membership (Demo ₹200) →**.
+3. Atomic transaction executes: creates purchase record, logs demo payment attempt (`provider: "demo"`), activates membership, and posts an inflow entry to the cashbook ledger.
+4. Membership badge updates immediately to **Active Member**.
+
+### Step 4: Role-Based Access Control (RBAC) Protection (`/desk`)
+1. While logged in as Sam Student, navigate to `http://localhost:3000/desk`.
+2. **Access Control Barrier:** The system blocks access with **403 FORBIDDEN · ACCESS CONTROL**.
+3. Confirms that student accounts cannot access staff management operations.
+4. Click **Sign out**.
+
+### Step 5: Treasurer Audit & Cashbook Verification (`/desk`)
+1. Navigate to `http://localhost:3000/login`.
+2. Click the demo fast-fill button: **⚡ Treasurer (Trevor Treasurer)**.
+3. Credentials populated: `treasurer@skyline.edu` / `TreasurerPassword123!`.
+4. Click **Sign in to Skyline** → redirects directly to `http://localhost:3000/desk`.
+5. Notice the **Club Desk · Treasury & Financial Audit** dashboard renders.
+6. Click the **Cashbook Ledger** tab:
+   - Notice the exact matching **Membership Dues** inflow entry (`INFLOW`, `category: MEMBERSHIP`) from Step 3.
+   - All amounts are computed in integer paise without floating point inaccuracy.
+7. Click the **Expense Claims Review Queue** tab:
+   - Inspect reimbursement claims.
+   - Verify PRD Invariant #9: self-approval and self-payout are strictly forbidden.
+
+### Step 6: Officer Operations Dashboard (`/desk`)
+1. Sign in as **Olivia Officer** (`officer@skyline.edu` / `OfficerPassword123!`).
+2. Redirects to `http://localhost:3000/desk` → displays **Officer Operations Dashboard**.
+3. Door QR Scanner, event capacity counters, size-variant inventory, and volunteer task lists are fully operational.
 
 ---
 
