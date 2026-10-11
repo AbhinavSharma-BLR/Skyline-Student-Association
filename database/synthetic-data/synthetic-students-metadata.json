@@ -1,0 +1,2402 @@
+[
+  {
+    "id": "synth-student-001",
+    "name": "Sneha Sen",
+    "email": "sneha.sen.001@example.test",
+    "department": "Information Science & Engineering",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-IN-001"
+  },
+  {
+    "id": "synth-student-002",
+    "name": "Rahul Khanna",
+    "email": "rahul.khanna.002@example.test",
+    "department": "Electronics & Communication Engineering",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-EL-002"
+  },
+  {
+    "id": "synth-student-003",
+    "name": "Tanvi Mishra",
+    "email": "tanvi.mishra.003@example.test",
+    "department": "Artificial Intelligence & Machine Learning",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-AR-003"
+  },
+  {
+    "id": "synth-student-004",
+    "name": "Karthik Fernandes",
+    "email": "karthik.fernandes.004@example.test",
+    "department": "Data Science & Analytics",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-DA-004"
+  },
+  {
+    "id": "synth-student-005",
+    "name": "Kiara Gupta",
+    "email": "kiara.gupta.005@example.test",
+    "department": "Mechanical Engineering",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-ME-005"
+  },
+  {
+    "id": "synth-student-006",
+    "name": "Ayaan Deshmukh",
+    "email": "ayaan.deshmukh.006@example.test",
+    "department": "Biotechnology",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-BI-006"
+  },
+  {
+    "id": "synth-student-007",
+    "name": "Ira Agarwal",
+    "email": "ira.agarwal.007@example.test",
+    "department": "Business Administration",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-BU-007"
+  },
+  {
+    "id": "synth-student-008",
+    "name": "Manan Shukla",
+    "email": "manan.shukla.008@example.test",
+    "department": "Design & Media Arts",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-DE-008"
+  },
+  {
+    "id": "synth-student-009",
+    "name": "Ritu Das",
+    "email": "ritu.das.009@example.test",
+    "department": "Civil & Environmental Engineering",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-CI-009"
+  },
+  {
+    "id": "synth-student-010",
+    "name": "Deepak Malhotra",
+    "email": "deepak.malhotra.010@example.test",
+    "department": "Computer Science & Engineering",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-CO-010"
+  },
+  {
+    "id": "synth-student-011",
+    "name": "Priya Chatterjee",
+    "email": "priya.chatterjee.011@example.test",
+    "department": "Information Science & Engineering",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-IN-011"
+  },
+  {
+    "id": "synth-student-012",
+    "name": "Aditya Bansal",
+    "email": "aditya.bansal.012@example.test",
+    "department": "Electronics & Communication Engineering",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-EL-012"
+  },
+  {
+    "id": "synth-student-013",
+    "name": "Neha Pillai",
+    "email": "neha.pillai.013@example.test",
+    "department": "Artificial Intelligence & Machine Learning",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-AR-013"
+  },
+  {
+    "id": "synth-student-014",
+    "name": "Ayush Chakraborty",
+    "email": "ayush.chakraborty.014@example.test",
+    "department": "Data Science & Analytics",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-DA-014"
+  },
+  {
+    "id": "synth-student-015",
+    "name": "Pari Joshi",
+    "email": "pari.joshi.015@example.test",
+    "department": "Mechanical Engineering",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-ME-015"
+  },
+  {
+    "id": "synth-student-016",
+    "name": "Mohammed Singh",
+    "email": "mohammed.singh.016@example.test",
+    "department": "Biotechnology",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-BI-016"
+  },
+  {
+    "id": "synth-student-017",
+    "name": "Zoya Saxena",
+    "email": "zoya.saxena.017@example.test",
+    "department": "Business Administration",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-BU-017"
+  },
+  {
+    "id": "synth-student-018",
+    "name": "Samar Thomas",
+    "email": "samar.thomas.018@example.test",
+    "department": "Design & Media Arts",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-DE-018"
+  },
+  {
+    "id": "synth-student-019",
+    "name": "Radhika Patel",
+    "email": "radhika.patel.019@example.test",
+    "department": "Civil & Environmental Engineering",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-CI-019"
+  },
+  {
+    "id": "synth-student-020",
+    "name": "Alok Rao",
+    "email": "alok.rao.020@example.test",
+    "department": "Computer Science & Engineering",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-CO-020"
+  },
+  {
+    "id": "synth-student-021",
+    "name": "Ananya Arora",
+    "email": "ananya.arora.021@example.test",
+    "department": "Information Science & Engineering",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-IN-021"
+  },
+  {
+    "id": "synth-student-022",
+    "name": "Kabir Pandey",
+    "email": "kabir.pandey.022@example.test",
+    "department": "Electronics & Communication Engineering",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-EL-022"
+  },
+  {
+    "id": "synth-student-023",
+    "name": "Ishita Ghosh",
+    "email": "ishita.ghosh.023@example.test",
+    "department": "Artificial Intelligence & Machine Learning",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-AR-023"
+  },
+  {
+    "id": "synth-student-024",
+    "name": "Tanmay Nair",
+    "email": "tanmay.nair.024@example.test",
+    "department": "Data Science & Analytics",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-DA-024"
+  },
+  {
+    "id": "synth-student-025",
+    "name": "Bhavya Menon",
+    "email": "bhavya.menon.025@example.test",
+    "department": "Mechanical Engineering",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-ME-025"
+  },
+  {
+    "id": "synth-student-026",
+    "name": "Aadhya Jain",
+    "email": "aadhya.jain.026@example.test",
+    "department": "Biotechnology",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-BI-026"
+  },
+  {
+    "id": "synth-student-027",
+    "name": "Myra Dubey",
+    "email": "myra.dubey.027@example.test",
+    "department": "Business Administration",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-BU-027"
+  },
+  {
+    "id": "synth-student-028",
+    "name": "Pranav Dutta",
+    "email": "pranav.dutta.028@example.test",
+    "department": "Design & Media Arts",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-DE-028"
+  },
+  {
+    "id": "synth-student-029",
+    "name": "Garima Banerjee",
+    "email": "garima.banerjee.029@example.test",
+    "department": "Civil & Environmental Engineering",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-CI-029"
+  },
+  {
+    "id": "synth-student-030",
+    "name": "Tushar Kapoor",
+    "email": "tushar.kapoor.030@example.test",
+    "department": "Computer Science & Engineering",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-CO-030"
+  },
+  {
+    "id": "synth-student-031",
+    "name": "Diya Mittal",
+    "email": "diya.mittal.031@example.test",
+    "department": "Information Science & Engineering",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-IN-031"
+  },
+  {
+    "id": "synth-student-032",
+    "name": "Arjun Nambiar",
+    "email": "arjun.nambiar.032@example.test",
+    "department": "Electronics & Communication Engineering",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-EL-032"
+  },
+  {
+    "id": "synth-student-033",
+    "name": "Kavya Kulkarni",
+    "email": "kavya.kulkarni.033@example.test",
+    "department": "Artificial Intelligence & Machine Learning",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-AR-033"
+  },
+  {
+    "id": "synth-student-034",
+    "name": "Aryan Choudhury",
+    "email": "aryan.choudhury.034@example.test",
+    "department": "Data Science & Analytics",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-DA-034"
+  },
+  {
+    "id": "synth-student-035",
+    "name": "Swati Kaur",
+    "email": "swati.kaur.035@example.test",
+    "department": "Mechanical Engineering",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-ME-035"
+  },
+  {
+    "id": "synth-student-036",
+    "name": "Reyansh Srivastava",
+    "email": "reyansh.srivastava.036@example.test",
+    "department": "Biotechnology",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-BI-036"
+  },
+  {
+    "id": "synth-student-037",
+    "name": "Prisha D'Souza",
+    "email": "prisha.dsouza.037@example.test",
+    "department": "Business Administration",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-BU-037"
+  },
+  {
+    "id": "synth-student-038",
+    "name": "Varun Iyer",
+    "email": "varun.iyer.038@example.test",
+    "department": "Design & Media Arts",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-DE-038"
+  },
+  {
+    "id": "synth-student-039",
+    "name": "Muskan Hegde",
+    "email": "muskan.hegde.039@example.test",
+    "department": "Civil & Environmental Engineering",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-CI-039"
+  },
+  {
+    "id": "synth-student-040",
+    "name": "Gaurav Sethi",
+    "email": "gaurav.sethi.040@example.test",
+    "department": "Computer Science & Engineering",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-CO-040"
+  },
+  {
+    "id": "synth-student-041",
+    "name": "Asha Tiwari",
+    "email": "asha.tiwari.041@example.test",
+    "department": "Information Science & Engineering",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-IN-041"
+  },
+  {
+    "id": "synth-student-042",
+    "name": "Vikram Roy",
+    "email": "vikram.roy.042@example.test",
+    "department": "Electronics & Communication Engineering",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-EL-042"
+  },
+  {
+    "id": "synth-student-043",
+    "name": "Pooja Reddy",
+    "email": "pooja.reddy.043@example.test",
+    "department": "Artificial Intelligence & Machine Learning",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-AR-043"
+  },
+  {
+    "id": "synth-student-044",
+    "name": "Shaurya Bhatia",
+    "email": "shaurya.bhatia.044@example.test",
+    "department": "Data Science & Analytics",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-DA-044"
+  },
+  {
+    "id": "synth-student-045",
+    "name": "Divya Goel",
+    "email": "divya.goel.045@example.test",
+    "department": "Mechanical Engineering",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-ME-045"
+  },
+  {
+    "id": "synth-student-046",
+    "name": "Advik Tripathi",
+    "email": "advik.tripathi.046@example.test",
+    "department": "Biotechnology",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-BI-046"
+  },
+  {
+    "id": "synth-student-047",
+    "name": "Anvi Bose",
+    "email": "anvi.bose.047@example.test",
+    "department": "Business Administration",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-BU-047"
+  },
+  {
+    "id": "synth-student-048",
+    "name": "Tejas Verma",
+    "email": "tejas.verma.048@example.test",
+    "department": "Design & Media Arts",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-DE-048"
+  },
+  {
+    "id": "synth-student-049",
+    "name": "Tanya Mukherjee",
+    "email": "tanya.mukherjee.049@example.test",
+    "department": "Civil & Environmental Engineering",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-CI-049"
+  },
+  {
+    "id": "synth-student-050",
+    "name": "Akash Garg",
+    "email": "akash.garg.050@example.test",
+    "department": "Computer Science & Engineering",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-CO-050"
+  },
+  {
+    "id": "synth-student-051",
+    "name": "Sunita Kurian",
+    "email": "sunita.kurian.051@example.test",
+    "department": "Information Science & Engineering",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-IN-051"
+  },
+  {
+    "id": "synth-student-052",
+    "name": "Siddharth Sharma",
+    "email": "siddharth.sharma.052@example.test",
+    "department": "Electronics & Communication Engineering",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-EL-052"
+  },
+  {
+    "id": "synth-student-053",
+    "name": "Riya Sen",
+    "email": "riya.sen.053@example.test",
+    "department": "Artificial Intelligence & Machine Learning",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-AR-053"
+  },
+  {
+    "id": "synth-student-054",
+    "name": "Dev Khanna",
+    "email": "dev.khanna.054@example.test",
+    "department": "Data Science & Analytics",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-DA-054"
+  },
+  {
+    "id": "synth-student-055",
+    "name": "Aditi Mishra",
+    "email": "aditi.mishra.055@example.test",
+    "department": "Mechanical Engineering",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-ME-055"
+  },
+  {
+    "id": "synth-student-056",
+    "name": "Vivaan Fernandes",
+    "email": "vivaan.fernandes.056@example.test",
+    "department": "Biotechnology",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-BI-056"
+  },
+  {
+    "id": "synth-student-057",
+    "name": "Saanvi Gupta",
+    "email": "saanvi.gupta.057@example.test",
+    "department": "Business Administration",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-BU-057"
+  },
+  {
+    "id": "synth-student-058",
+    "name": "Yash Deshmukh",
+    "email": "yash.deshmukh.058@example.test",
+    "department": "Design & Media Arts",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-DE-058"
+  },
+  {
+    "id": "synth-student-059",
+    "name": "Kritika Agarwal",
+    "email": "kritika.agarwal.059@example.test",
+    "department": "Civil & Environmental Engineering",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-CI-059"
+  },
+  {
+    "id": "synth-student-060",
+    "name": "Chirag Shukla",
+    "email": "chirag.shukla.060@example.test",
+    "department": "Computer Science & Engineering",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-CO-060"
+  },
+  {
+    "id": "synth-student-061",
+    "name": "Pallavi Das",
+    "email": "pallavi.das.061@example.test",
+    "department": "Information Science & Engineering",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-IN-061"
+  },
+  {
+    "id": "synth-student-062",
+    "name": "Rohan Malhotra",
+    "email": "rohan.malhotra.062@example.test",
+    "department": "Electronics & Communication Engineering",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-EL-062"
+  },
+  {
+    "id": "synth-student-063",
+    "name": "Meera Chatterjee",
+    "email": "meera.chatterjee.063@example.test",
+    "department": "Artificial Intelligence & Machine Learning",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-AR-063"
+  },
+  {
+    "id": "synth-student-064",
+    "name": "Nikhil Bansal",
+    "email": "nikhil.bansal.064@example.test",
+    "department": "Data Science & Analytics",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-DA-064"
+  },
+  {
+    "id": "synth-student-065",
+    "name": "Shreya Pillai",
+    "email": "shreya.pillai.065@example.test",
+    "department": "Mechanical Engineering",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-ME-065"
+  },
+  {
+    "id": "synth-student-066",
+    "name": "Harsh Chakraborty",
+    "email": "harsh.chakraborty.066@example.test",
+    "department": "Biotechnology",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-BI-066"
+  },
+  {
+    "id": "synth-student-067",
+    "name": "Fatima Joshi",
+    "email": "fatima.joshi.067@example.test",
+    "department": "Business Administration",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-BU-067"
+  },
+  {
+    "id": "synth-student-068",
+    "name": "Dhruv Singh",
+    "email": "dhruv.singh.068@example.test",
+    "department": "Design & Media Arts",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-DE-068"
+  },
+  {
+    "id": "synth-student-069",
+    "name": "Simran Saxena",
+    "email": "simran.saxena.069@example.test",
+    "department": "Civil & Environmental Engineering",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-CI-069"
+  },
+  {
+    "id": "synth-student-070",
+    "name": "Kunal Thomas",
+    "email": "kunal.thomas.070@example.test",
+    "department": "Computer Science & Engineering",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-CO-070"
+  },
+  {
+    "id": "synth-student-071",
+    "name": "Nisha Patel",
+    "email": "nisha.patel.071@example.test",
+    "department": "Information Science & Engineering",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-IN-071"
+  },
+  {
+    "id": "synth-student-072",
+    "name": "Aarav Rao",
+    "email": "aarav.rao.072@example.test",
+    "department": "Electronics & Communication Engineering",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-EL-072"
+  },
+  {
+    "id": "synth-student-073",
+    "name": "Sneha Arora",
+    "email": "sneha.arora.073@example.test",
+    "department": "Artificial Intelligence & Machine Learning",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-AR-073"
+  },
+  {
+    "id": "synth-student-074",
+    "name": "Rahul Pandey",
+    "email": "rahul.pandey.074@example.test",
+    "department": "Data Science & Analytics",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-DA-074"
+  },
+  {
+    "id": "synth-student-075",
+    "name": "Tanvi Ghosh",
+    "email": "tanvi.ghosh.075@example.test",
+    "department": "Mechanical Engineering",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-ME-075"
+  },
+  {
+    "id": "synth-student-076",
+    "name": "Karthik Nair",
+    "email": "karthik.nair.076@example.test",
+    "department": "Biotechnology",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-BI-076"
+  },
+  {
+    "id": "synth-student-077",
+    "name": "Kiara Menon",
+    "email": "kiara.menon.077@example.test",
+    "department": "Business Administration",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-BU-077"
+  },
+  {
+    "id": "synth-student-078",
+    "name": "Ayaan Jain",
+    "email": "ayaan.jain.078@example.test",
+    "department": "Design & Media Arts",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-DE-078"
+  },
+  {
+    "id": "synth-student-079",
+    "name": "Ira Dubey",
+    "email": "ira.dubey.079@example.test",
+    "department": "Civil & Environmental Engineering",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-CI-079"
+  },
+  {
+    "id": "synth-student-080",
+    "name": "Manan Dutta",
+    "email": "manan.dutta.080@example.test",
+    "department": "Computer Science & Engineering",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-CO-080"
+  },
+  {
+    "id": "synth-student-081",
+    "name": "Ritu Banerjee",
+    "email": "ritu.banerjee.081@example.test",
+    "department": "Information Science & Engineering",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-IN-081"
+  },
+  {
+    "id": "synth-student-082",
+    "name": "Deepak Kapoor",
+    "email": "deepak.kapoor.082@example.test",
+    "department": "Electronics & Communication Engineering",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-EL-082"
+  },
+  {
+    "id": "synth-student-083",
+    "name": "Priya Mittal",
+    "email": "priya.mittal.083@example.test",
+    "department": "Artificial Intelligence & Machine Learning",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-AR-083"
+  },
+  {
+    "id": "synth-student-084",
+    "name": "Aditya Nambiar",
+    "email": "aditya.nambiar.084@example.test",
+    "department": "Data Science & Analytics",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-DA-084"
+  },
+  {
+    "id": "synth-student-085",
+    "name": "Neha Kulkarni",
+    "email": "neha.kulkarni.085@example.test",
+    "department": "Mechanical Engineering",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-ME-085"
+  },
+  {
+    "id": "synth-student-086",
+    "name": "Ayush Choudhury",
+    "email": "ayush.choudhury.086@example.test",
+    "department": "Biotechnology",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-BI-086"
+  },
+  {
+    "id": "synth-student-087",
+    "name": "Pari Kaur",
+    "email": "pari.kaur.087@example.test",
+    "department": "Business Administration",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-BU-087"
+  },
+  {
+    "id": "synth-student-088",
+    "name": "Mohammed Srivastava",
+    "email": "mohammed.srivastava.088@example.test",
+    "department": "Design & Media Arts",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-DE-088"
+  },
+  {
+    "id": "synth-student-089",
+    "name": "Zoya D'Souza",
+    "email": "zoya.dsouza.089@example.test",
+    "department": "Civil & Environmental Engineering",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-CI-089"
+  },
+  {
+    "id": "synth-student-090",
+    "name": "Samar Iyer",
+    "email": "samar.iyer.090@example.test",
+    "department": "Computer Science & Engineering",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-CO-090"
+  },
+  {
+    "id": "synth-student-091",
+    "name": "Radhika Hegde",
+    "email": "radhika.hegde.091@example.test",
+    "department": "Information Science & Engineering",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-IN-091"
+  },
+  {
+    "id": "synth-student-092",
+    "name": "Alok Sethi",
+    "email": "alok.sethi.092@example.test",
+    "department": "Electronics & Communication Engineering",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-EL-092"
+  },
+  {
+    "id": "synth-student-093",
+    "name": "Ananya Tiwari",
+    "email": "ananya.tiwari.093@example.test",
+    "department": "Artificial Intelligence & Machine Learning",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-AR-093"
+  },
+  {
+    "id": "synth-student-094",
+    "name": "Kabir Roy",
+    "email": "kabir.roy.094@example.test",
+    "department": "Data Science & Analytics",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-DA-094"
+  },
+  {
+    "id": "synth-student-095",
+    "name": "Ishita Reddy",
+    "email": "ishita.reddy.095@example.test",
+    "department": "Mechanical Engineering",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-ME-095"
+  },
+  {
+    "id": "synth-student-096",
+    "name": "Tanmay Bhatia",
+    "email": "tanmay.bhatia.096@example.test",
+    "department": "Biotechnology",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-BI-096"
+  },
+  {
+    "id": "synth-student-097",
+    "name": "Bhavya Goel",
+    "email": "bhavya.goel.097@example.test",
+    "department": "Business Administration",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-BU-097"
+  },
+  {
+    "id": "synth-student-098",
+    "name": "Aadhya Tripathi",
+    "email": "aadhya.tripathi.098@example.test",
+    "department": "Design & Media Arts",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-DE-098"
+  },
+  {
+    "id": "synth-student-099",
+    "name": "Myra Bose",
+    "email": "myra.bose.099@example.test",
+    "department": "Civil & Environmental Engineering",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-CI-099"
+  },
+  {
+    "id": "synth-student-100",
+    "name": "Pranav Verma",
+    "email": "pranav.verma.100@example.test",
+    "department": "Computer Science & Engineering",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-CO-100"
+  },
+  {
+    "id": "synth-student-101",
+    "name": "Garima Mukherjee",
+    "email": "garima.mukherjee.101@example.test",
+    "department": "Information Science & Engineering",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-IN-101"
+  },
+  {
+    "id": "synth-student-102",
+    "name": "Tushar Garg",
+    "email": "tushar.garg.102@example.test",
+    "department": "Electronics & Communication Engineering",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-EL-102"
+  },
+  {
+    "id": "synth-student-103",
+    "name": "Diya Kurian",
+    "email": "diya.kurian.103@example.test",
+    "department": "Artificial Intelligence & Machine Learning",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-AR-103"
+  },
+  {
+    "id": "synth-student-104",
+    "name": "Arjun Sharma",
+    "email": "arjun.sharma.104@example.test",
+    "department": "Data Science & Analytics",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-DA-104"
+  },
+  {
+    "id": "synth-student-105",
+    "name": "Kavya Sen",
+    "email": "kavya.sen.105@example.test",
+    "department": "Mechanical Engineering",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-ME-105"
+  },
+  {
+    "id": "synth-student-106",
+    "name": "Aryan Khanna",
+    "email": "aryan.khanna.106@example.test",
+    "department": "Biotechnology",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-BI-106"
+  },
+  {
+    "id": "synth-student-107",
+    "name": "Swati Mishra",
+    "email": "swati.mishra.107@example.test",
+    "department": "Business Administration",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-BU-107"
+  },
+  {
+    "id": "synth-student-108",
+    "name": "Reyansh Fernandes",
+    "email": "reyansh.fernandes.108@example.test",
+    "department": "Design & Media Arts",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-DE-108"
+  },
+  {
+    "id": "synth-student-109",
+    "name": "Prisha Gupta",
+    "email": "prisha.gupta.109@example.test",
+    "department": "Civil & Environmental Engineering",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-CI-109"
+  },
+  {
+    "id": "synth-student-110",
+    "name": "Varun Deshmukh",
+    "email": "varun.deshmukh.110@example.test",
+    "department": "Computer Science & Engineering",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-CO-110"
+  },
+  {
+    "id": "synth-student-111",
+    "name": "Muskan Agarwal",
+    "email": "muskan.agarwal.111@example.test",
+    "department": "Information Science & Engineering",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-IN-111"
+  },
+  {
+    "id": "synth-student-112",
+    "name": "Gaurav Shukla",
+    "email": "gaurav.shukla.112@example.test",
+    "department": "Electronics & Communication Engineering",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-EL-112"
+  },
+  {
+    "id": "synth-student-113",
+    "name": "Asha Das",
+    "email": "asha.das.113@example.test",
+    "department": "Artificial Intelligence & Machine Learning",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-AR-113"
+  },
+  {
+    "id": "synth-student-114",
+    "name": "Vikram Malhotra",
+    "email": "vikram.malhotra.114@example.test",
+    "department": "Data Science & Analytics",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-DA-114"
+  },
+  {
+    "id": "synth-student-115",
+    "name": "Pooja Chatterjee",
+    "email": "pooja.chatterjee.115@example.test",
+    "department": "Mechanical Engineering",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-ME-115"
+  },
+  {
+    "id": "synth-student-116",
+    "name": "Shaurya Bansal",
+    "email": "shaurya.bansal.116@example.test",
+    "department": "Biotechnology",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-BI-116"
+  },
+  {
+    "id": "synth-student-117",
+    "name": "Divya Pillai",
+    "email": "divya.pillai.117@example.test",
+    "department": "Business Administration",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-BU-117"
+  },
+  {
+    "id": "synth-student-118",
+    "name": "Advik Chakraborty",
+    "email": "advik.chakraborty.118@example.test",
+    "department": "Design & Media Arts",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-DE-118"
+  },
+  {
+    "id": "synth-student-119",
+    "name": "Anvi Joshi",
+    "email": "anvi.joshi.119@example.test",
+    "department": "Civil & Environmental Engineering",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-CI-119"
+  },
+  {
+    "id": "synth-student-120",
+    "name": "Tejas Singh",
+    "email": "tejas.singh.120@example.test",
+    "department": "Computer Science & Engineering",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-CO-120"
+  },
+  {
+    "id": "synth-student-121",
+    "name": "Tanya Saxena",
+    "email": "tanya.saxena.121@example.test",
+    "department": "Information Science & Engineering",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-IN-121"
+  },
+  {
+    "id": "synth-student-122",
+    "name": "Akash Thomas",
+    "email": "akash.thomas.122@example.test",
+    "department": "Electronics & Communication Engineering",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-EL-122"
+  },
+  {
+    "id": "synth-student-123",
+    "name": "Sunita Patel",
+    "email": "sunita.patel.123@example.test",
+    "department": "Artificial Intelligence & Machine Learning",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-AR-123"
+  },
+  {
+    "id": "synth-student-124",
+    "name": "Siddharth Rao",
+    "email": "siddharth.rao.124@example.test",
+    "department": "Data Science & Analytics",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-DA-124"
+  },
+  {
+    "id": "synth-student-125",
+    "name": "Riya Arora",
+    "email": "riya.arora.125@example.test",
+    "department": "Mechanical Engineering",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-ME-125"
+  },
+  {
+    "id": "synth-student-126",
+    "name": "Dev Pandey",
+    "email": "dev.pandey.126@example.test",
+    "department": "Biotechnology",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-BI-126"
+  },
+  {
+    "id": "synth-student-127",
+    "name": "Aditi Ghosh",
+    "email": "aditi.ghosh.127@example.test",
+    "department": "Business Administration",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-BU-127"
+  },
+  {
+    "id": "synth-student-128",
+    "name": "Vivaan Nair",
+    "email": "vivaan.nair.128@example.test",
+    "department": "Design & Media Arts",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-DE-128"
+  },
+  {
+    "id": "synth-student-129",
+    "name": "Saanvi Menon",
+    "email": "saanvi.menon.129@example.test",
+    "department": "Civil & Environmental Engineering",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-CI-129"
+  },
+  {
+    "id": "synth-student-130",
+    "name": "Yash Jain",
+    "email": "yash.jain.130@example.test",
+    "department": "Computer Science & Engineering",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-CO-130"
+  },
+  {
+    "id": "synth-student-131",
+    "name": "Kritika Dubey",
+    "email": "kritika.dubey.131@example.test",
+    "department": "Information Science & Engineering",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-IN-131"
+  },
+  {
+    "id": "synth-student-132",
+    "name": "Chirag Dutta",
+    "email": "chirag.dutta.132@example.test",
+    "department": "Electronics & Communication Engineering",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-EL-132"
+  },
+  {
+    "id": "synth-student-133",
+    "name": "Pallavi Banerjee",
+    "email": "pallavi.banerjee.133@example.test",
+    "department": "Artificial Intelligence & Machine Learning",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-AR-133"
+  },
+  {
+    "id": "synth-student-134",
+    "name": "Rohan Kapoor",
+    "email": "rohan.kapoor.134@example.test",
+    "department": "Data Science & Analytics",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-DA-134"
+  },
+  {
+    "id": "synth-student-135",
+    "name": "Meera Mittal",
+    "email": "meera.mittal.135@example.test",
+    "department": "Mechanical Engineering",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-ME-135"
+  },
+  {
+    "id": "synth-student-136",
+    "name": "Nikhil Nambiar",
+    "email": "nikhil.nambiar.136@example.test",
+    "department": "Biotechnology",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-BI-136"
+  },
+  {
+    "id": "synth-student-137",
+    "name": "Shreya Kulkarni",
+    "email": "shreya.kulkarni.137@example.test",
+    "department": "Business Administration",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-BU-137"
+  },
+  {
+    "id": "synth-student-138",
+    "name": "Harsh Choudhury",
+    "email": "harsh.choudhury.138@example.test",
+    "department": "Design & Media Arts",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-DE-138"
+  },
+  {
+    "id": "synth-student-139",
+    "name": "Fatima Kaur",
+    "email": "fatima.kaur.139@example.test",
+    "department": "Civil & Environmental Engineering",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-CI-139"
+  },
+  {
+    "id": "synth-student-140",
+    "name": "Dhruv Srivastava",
+    "email": "dhruv.srivastava.140@example.test",
+    "department": "Computer Science & Engineering",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-CO-140"
+  },
+  {
+    "id": "synth-student-141",
+    "name": "Simran D'Souza",
+    "email": "simran.dsouza.141@example.test",
+    "department": "Information Science & Engineering",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-IN-141"
+  },
+  {
+    "id": "synth-student-142",
+    "name": "Kunal Iyer",
+    "email": "kunal.iyer.142@example.test",
+    "department": "Electronics & Communication Engineering",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-EL-142"
+  },
+  {
+    "id": "synth-student-143",
+    "name": "Nisha Hegde",
+    "email": "nisha.hegde.143@example.test",
+    "department": "Artificial Intelligence & Machine Learning",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-AR-143"
+  },
+  {
+    "id": "synth-student-144",
+    "name": "Aarav Sethi",
+    "email": "aarav.sethi.144@example.test",
+    "department": "Data Science & Analytics",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-DA-144"
+  },
+  {
+    "id": "synth-student-145",
+    "name": "Sneha Tiwari",
+    "email": "sneha.tiwari.145@example.test",
+    "department": "Mechanical Engineering",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-ME-145"
+  },
+  {
+    "id": "synth-student-146",
+    "name": "Rahul Roy",
+    "email": "rahul.roy.146@example.test",
+    "department": "Biotechnology",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-BI-146"
+  },
+  {
+    "id": "synth-student-147",
+    "name": "Tanvi Reddy",
+    "email": "tanvi.reddy.147@example.test",
+    "department": "Business Administration",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-BU-147"
+  },
+  {
+    "id": "synth-student-148",
+    "name": "Karthik Bhatia",
+    "email": "karthik.bhatia.148@example.test",
+    "department": "Design & Media Arts",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-DE-148"
+  },
+  {
+    "id": "synth-student-149",
+    "name": "Kiara Goel",
+    "email": "kiara.goel.149@example.test",
+    "department": "Civil & Environmental Engineering",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-CI-149"
+  },
+  {
+    "id": "synth-student-150",
+    "name": "Ayaan Tripathi",
+    "email": "ayaan.tripathi.150@example.test",
+    "department": "Computer Science & Engineering",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-CO-150"
+  },
+  {
+    "id": "synth-student-151",
+    "name": "Ira Bose",
+    "email": "ira.bose.151@example.test",
+    "department": "Information Science & Engineering",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-IN-151"
+  },
+  {
+    "id": "synth-student-152",
+    "name": "Manan Verma",
+    "email": "manan.verma.152@example.test",
+    "department": "Electronics & Communication Engineering",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-EL-152"
+  },
+  {
+    "id": "synth-student-153",
+    "name": "Ritu Mukherjee",
+    "email": "ritu.mukherjee.153@example.test",
+    "department": "Artificial Intelligence & Machine Learning",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-AR-153"
+  },
+  {
+    "id": "synth-student-154",
+    "name": "Deepak Garg",
+    "email": "deepak.garg.154@example.test",
+    "department": "Data Science & Analytics",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-DA-154"
+  },
+  {
+    "id": "synth-student-155",
+    "name": "Priya Kurian",
+    "email": "priya.kurian.155@example.test",
+    "department": "Mechanical Engineering",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-ME-155"
+  },
+  {
+    "id": "synth-student-156",
+    "name": "Aditya Sharma",
+    "email": "aditya.sharma.156@example.test",
+    "department": "Biotechnology",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-BI-156"
+  },
+  {
+    "id": "synth-student-157",
+    "name": "Neha Sen",
+    "email": "neha.sen.157@example.test",
+    "department": "Business Administration",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-BU-157"
+  },
+  {
+    "id": "synth-student-158",
+    "name": "Ayush Khanna",
+    "email": "ayush.khanna.158@example.test",
+    "department": "Design & Media Arts",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-DE-158"
+  },
+  {
+    "id": "synth-student-159",
+    "name": "Pari Mishra",
+    "email": "pari.mishra.159@example.test",
+    "department": "Civil & Environmental Engineering",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-CI-159"
+  },
+  {
+    "id": "synth-student-160",
+    "name": "Mohammed Fernandes",
+    "email": "mohammed.fernandes.160@example.test",
+    "department": "Computer Science & Engineering",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-CO-160"
+  },
+  {
+    "id": "synth-student-161",
+    "name": "Zoya Gupta",
+    "email": "zoya.gupta.161@example.test",
+    "department": "Information Science & Engineering",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-IN-161"
+  },
+  {
+    "id": "synth-student-162",
+    "name": "Samar Deshmukh",
+    "email": "samar.deshmukh.162@example.test",
+    "department": "Electronics & Communication Engineering",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-EL-162"
+  },
+  {
+    "id": "synth-student-163",
+    "name": "Radhika Agarwal",
+    "email": "radhika.agarwal.163@example.test",
+    "department": "Artificial Intelligence & Machine Learning",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-AR-163"
+  },
+  {
+    "id": "synth-student-164",
+    "name": "Alok Shukla",
+    "email": "alok.shukla.164@example.test",
+    "department": "Data Science & Analytics",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-DA-164"
+  },
+  {
+    "id": "synth-student-165",
+    "name": "Ananya Das",
+    "email": "ananya.das.165@example.test",
+    "department": "Mechanical Engineering",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-ME-165"
+  },
+  {
+    "id": "synth-student-166",
+    "name": "Kabir Malhotra",
+    "email": "kabir.malhotra.166@example.test",
+    "department": "Biotechnology",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-BI-166"
+  },
+  {
+    "id": "synth-student-167",
+    "name": "Ishita Chatterjee",
+    "email": "ishita.chatterjee.167@example.test",
+    "department": "Business Administration",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-BU-167"
+  },
+  {
+    "id": "synth-student-168",
+    "name": "Tanmay Bansal",
+    "email": "tanmay.bansal.168@example.test",
+    "department": "Design & Media Arts",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-DE-168"
+  },
+  {
+    "id": "synth-student-169",
+    "name": "Bhavya Pillai",
+    "email": "bhavya.pillai.169@example.test",
+    "department": "Civil & Environmental Engineering",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-CI-169"
+  },
+  {
+    "id": "synth-student-170",
+    "name": "Aadhya Chakraborty",
+    "email": "aadhya.chakraborty.170@example.test",
+    "department": "Computer Science & Engineering",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-CO-170"
+  },
+  {
+    "id": "synth-student-171",
+    "name": "Myra Joshi",
+    "email": "myra.joshi.171@example.test",
+    "department": "Information Science & Engineering",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-IN-171"
+  },
+  {
+    "id": "synth-student-172",
+    "name": "Pranav Singh",
+    "email": "pranav.singh.172@example.test",
+    "department": "Electronics & Communication Engineering",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-EL-172"
+  },
+  {
+    "id": "synth-student-173",
+    "name": "Garima Saxena",
+    "email": "garima.saxena.173@example.test",
+    "department": "Artificial Intelligence & Machine Learning",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-AR-173"
+  },
+  {
+    "id": "synth-student-174",
+    "name": "Tushar Thomas",
+    "email": "tushar.thomas.174@example.test",
+    "department": "Data Science & Analytics",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-DA-174"
+  },
+  {
+    "id": "synth-student-175",
+    "name": "Diya Patel",
+    "email": "diya.patel.175@example.test",
+    "department": "Mechanical Engineering",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-ME-175"
+  },
+  {
+    "id": "synth-student-176",
+    "name": "Arjun Rao",
+    "email": "arjun.rao.176@example.test",
+    "department": "Biotechnology",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-BI-176"
+  },
+  {
+    "id": "synth-student-177",
+    "name": "Kavya Arora",
+    "email": "kavya.arora.177@example.test",
+    "department": "Business Administration",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-BU-177"
+  },
+  {
+    "id": "synth-student-178",
+    "name": "Aryan Pandey",
+    "email": "aryan.pandey.178@example.test",
+    "department": "Design & Media Arts",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-DE-178"
+  },
+  {
+    "id": "synth-student-179",
+    "name": "Swati Ghosh",
+    "email": "swati.ghosh.179@example.test",
+    "department": "Civil & Environmental Engineering",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-CI-179"
+  },
+  {
+    "id": "synth-student-180",
+    "name": "Reyansh Nair",
+    "email": "reyansh.nair.180@example.test",
+    "department": "Computer Science & Engineering",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-CO-180"
+  },
+  {
+    "id": "synth-student-181",
+    "name": "Prisha Menon",
+    "email": "prisha.menon.181@example.test",
+    "department": "Information Science & Engineering",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-IN-181"
+  },
+  {
+    "id": "synth-student-182",
+    "name": "Varun Jain",
+    "email": "varun.jain.182@example.test",
+    "department": "Electronics & Communication Engineering",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-EL-182"
+  },
+  {
+    "id": "synth-student-183",
+    "name": "Muskan Dubey",
+    "email": "muskan.dubey.183@example.test",
+    "department": "Artificial Intelligence & Machine Learning",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-AR-183"
+  },
+  {
+    "id": "synth-student-184",
+    "name": "Gaurav Dutta",
+    "email": "gaurav.dutta.184@example.test",
+    "department": "Data Science & Analytics",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-DA-184"
+  },
+  {
+    "id": "synth-student-185",
+    "name": "Asha Banerjee",
+    "email": "asha.banerjee.185@example.test",
+    "department": "Mechanical Engineering",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-ME-185"
+  },
+  {
+    "id": "synth-student-186",
+    "name": "Vikram Kapoor",
+    "email": "vikram.kapoor.186@example.test",
+    "department": "Biotechnology",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-BI-186"
+  },
+  {
+    "id": "synth-student-187",
+    "name": "Pooja Mittal",
+    "email": "pooja.mittal.187@example.test",
+    "department": "Business Administration",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-BU-187"
+  },
+  {
+    "id": "synth-student-188",
+    "name": "Shaurya Nambiar",
+    "email": "shaurya.nambiar.188@example.test",
+    "department": "Design & Media Arts",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-DE-188"
+  },
+  {
+    "id": "synth-student-189",
+    "name": "Divya Kulkarni",
+    "email": "divya.kulkarni.189@example.test",
+    "department": "Civil & Environmental Engineering",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-CI-189"
+  },
+  {
+    "id": "synth-student-190",
+    "name": "Advik Choudhury",
+    "email": "advik.choudhury.190@example.test",
+    "department": "Computer Science & Engineering",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-CO-190"
+  },
+  {
+    "id": "synth-student-191",
+    "name": "Anvi Kaur",
+    "email": "anvi.kaur.191@example.test",
+    "department": "Information Science & Engineering",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-IN-191"
+  },
+  {
+    "id": "synth-student-192",
+    "name": "Tejas Srivastava",
+    "email": "tejas.srivastava.192@example.test",
+    "department": "Electronics & Communication Engineering",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-EL-192"
+  },
+  {
+    "id": "synth-student-193",
+    "name": "Tanya D'Souza",
+    "email": "tanya.dsouza.193@example.test",
+    "department": "Artificial Intelligence & Machine Learning",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-AR-193"
+  },
+  {
+    "id": "synth-student-194",
+    "name": "Akash Iyer",
+    "email": "akash.iyer.194@example.test",
+    "department": "Data Science & Analytics",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-DA-194"
+  },
+  {
+    "id": "synth-student-195",
+    "name": "Sunita Hegde",
+    "email": "sunita.hegde.195@example.test",
+    "department": "Mechanical Engineering",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-ME-195"
+  },
+  {
+    "id": "synth-student-196",
+    "name": "Siddharth Sethi",
+    "email": "siddharth.sethi.196@example.test",
+    "department": "Biotechnology",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-BI-196"
+  },
+  {
+    "id": "synth-student-197",
+    "name": "Riya Tiwari",
+    "email": "riya.tiwari.197@example.test",
+    "department": "Business Administration",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-BU-197"
+  },
+  {
+    "id": "synth-student-198",
+    "name": "Dev Roy",
+    "email": "dev.roy.198@example.test",
+    "department": "Design & Media Arts",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-DE-198"
+  },
+  {
+    "id": "synth-student-199",
+    "name": "Aditi Reddy",
+    "email": "aditi.reddy.199@example.test",
+    "department": "Civil & Environmental Engineering",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-CI-199"
+  },
+  {
+    "id": "synth-student-200",
+    "name": "Vivaan Bhatia",
+    "email": "vivaan.bhatia.200@example.test",
+    "department": "Computer Science & Engineering",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-CO-200"
+  },
+  {
+    "id": "synth-student-201",
+    "name": "Saanvi Goel",
+    "email": "saanvi.goel.201@example.test",
+    "department": "Information Science & Engineering",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-IN-201"
+  },
+  {
+    "id": "synth-student-202",
+    "name": "Yash Tripathi",
+    "email": "yash.tripathi.202@example.test",
+    "department": "Electronics & Communication Engineering",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-EL-202"
+  },
+  {
+    "id": "synth-student-203",
+    "name": "Kritika Bose",
+    "email": "kritika.bose.203@example.test",
+    "department": "Artificial Intelligence & Machine Learning",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-AR-203"
+  },
+  {
+    "id": "synth-student-204",
+    "name": "Chirag Verma",
+    "email": "chirag.verma.204@example.test",
+    "department": "Data Science & Analytics",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-DA-204"
+  },
+  {
+    "id": "synth-student-205",
+    "name": "Pallavi Mukherjee",
+    "email": "pallavi.mukherjee.205@example.test",
+    "department": "Mechanical Engineering",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-ME-205"
+  },
+  {
+    "id": "synth-student-206",
+    "name": "Rohan Garg",
+    "email": "rohan.garg.206@example.test",
+    "department": "Biotechnology",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-BI-206"
+  },
+  {
+    "id": "synth-student-207",
+    "name": "Meera Kurian",
+    "email": "meera.kurian.207@example.test",
+    "department": "Business Administration",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-BU-207"
+  },
+  {
+    "id": "synth-student-208",
+    "name": "Nikhil Sharma",
+    "email": "nikhil.sharma.208@example.test",
+    "department": "Design & Media Arts",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-DE-208"
+  },
+  {
+    "id": "synth-student-209",
+    "name": "Shreya Sen",
+    "email": "shreya.sen.209@example.test",
+    "department": "Civil & Environmental Engineering",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-CI-209"
+  },
+  {
+    "id": "synth-student-210",
+    "name": "Harsh Khanna",
+    "email": "harsh.khanna.210@example.test",
+    "department": "Computer Science & Engineering",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-CO-210"
+  },
+  {
+    "id": "synth-student-211",
+    "name": "Fatima Mishra",
+    "email": "fatima.mishra.211@example.test",
+    "department": "Information Science & Engineering",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-IN-211"
+  },
+  {
+    "id": "synth-student-212",
+    "name": "Dhruv Fernandes",
+    "email": "dhruv.fernandes.212@example.test",
+    "department": "Electronics & Communication Engineering",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-EL-212"
+  },
+  {
+    "id": "synth-student-213",
+    "name": "Simran Gupta",
+    "email": "simran.gupta.213@example.test",
+    "department": "Artificial Intelligence & Machine Learning",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-AR-213"
+  },
+  {
+    "id": "synth-student-214",
+    "name": "Kunal Deshmukh",
+    "email": "kunal.deshmukh.214@example.test",
+    "department": "Data Science & Analytics",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-DA-214"
+  },
+  {
+    "id": "synth-student-215",
+    "name": "Nisha Agarwal",
+    "email": "nisha.agarwal.215@example.test",
+    "department": "Mechanical Engineering",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-ME-215"
+  },
+  {
+    "id": "synth-student-216",
+    "name": "Aarav Shukla",
+    "email": "aarav.shukla.216@example.test",
+    "department": "Biotechnology",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-BI-216"
+  },
+  {
+    "id": "synth-student-217",
+    "name": "Sneha Das",
+    "email": "sneha.das.217@example.test",
+    "department": "Business Administration",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-BU-217"
+  },
+  {
+    "id": "synth-student-218",
+    "name": "Rahul Malhotra",
+    "email": "rahul.malhotra.218@example.test",
+    "department": "Design & Media Arts",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-DE-218"
+  },
+  {
+    "id": "synth-student-219",
+    "name": "Tanvi Chatterjee",
+    "email": "tanvi.chatterjee.219@example.test",
+    "department": "Civil & Environmental Engineering",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-CI-219"
+  },
+  {
+    "id": "synth-student-220",
+    "name": "Karthik Bansal",
+    "email": "karthik.bansal.220@example.test",
+    "department": "Computer Science & Engineering",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-CO-220"
+  },
+  {
+    "id": "synth-student-221",
+    "name": "Kiara Pillai",
+    "email": "kiara.pillai.221@example.test",
+    "department": "Information Science & Engineering",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-IN-221"
+  },
+  {
+    "id": "synth-student-222",
+    "name": "Ayaan Chakraborty",
+    "email": "ayaan.chakraborty.222@example.test",
+    "department": "Electronics & Communication Engineering",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-EL-222"
+  },
+  {
+    "id": "synth-student-223",
+    "name": "Ira Joshi",
+    "email": "ira.joshi.223@example.test",
+    "department": "Artificial Intelligence & Machine Learning",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-AR-223"
+  },
+  {
+    "id": "synth-student-224",
+    "name": "Manan Singh",
+    "email": "manan.singh.224@example.test",
+    "department": "Data Science & Analytics",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-DA-224"
+  },
+  {
+    "id": "synth-student-225",
+    "name": "Ritu Saxena",
+    "email": "ritu.saxena.225@example.test",
+    "department": "Mechanical Engineering",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-ME-225"
+  },
+  {
+    "id": "synth-student-226",
+    "name": "Deepak Thomas",
+    "email": "deepak.thomas.226@example.test",
+    "department": "Biotechnology",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-BI-226"
+  },
+  {
+    "id": "synth-student-227",
+    "name": "Priya Patel",
+    "email": "priya.patel.227@example.test",
+    "department": "Business Administration",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-BU-227"
+  },
+  {
+    "id": "synth-student-228",
+    "name": "Aditya Rao",
+    "email": "aditya.rao.228@example.test",
+    "department": "Design & Media Arts",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-DE-228"
+  },
+  {
+    "id": "synth-student-229",
+    "name": "Neha Arora",
+    "email": "neha.arora.229@example.test",
+    "department": "Civil & Environmental Engineering",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-CI-229"
+  },
+  {
+    "id": "synth-student-230",
+    "name": "Ayush Pandey",
+    "email": "ayush.pandey.230@example.test",
+    "department": "Computer Science & Engineering",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-CO-230"
+  },
+  {
+    "id": "synth-student-231",
+    "name": "Pari Ghosh",
+    "email": "pari.ghosh.231@example.test",
+    "department": "Information Science & Engineering",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-IN-231"
+  },
+  {
+    "id": "synth-student-232",
+    "name": "Mohammed Nair",
+    "email": "mohammed.nair.232@example.test",
+    "department": "Electronics & Communication Engineering",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-EL-232"
+  },
+  {
+    "id": "synth-student-233",
+    "name": "Zoya Menon",
+    "email": "zoya.menon.233@example.test",
+    "department": "Artificial Intelligence & Machine Learning",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-AR-233"
+  },
+  {
+    "id": "synth-student-234",
+    "name": "Samar Jain",
+    "email": "samar.jain.234@example.test",
+    "department": "Data Science & Analytics",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-DA-234"
+  },
+  {
+    "id": "synth-student-235",
+    "name": "Radhika Dubey",
+    "email": "radhika.dubey.235@example.test",
+    "department": "Mechanical Engineering",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-ME-235"
+  },
+  {
+    "id": "synth-student-236",
+    "name": "Alok Dutta",
+    "email": "alok.dutta.236@example.test",
+    "department": "Biotechnology",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-BI-236"
+  },
+  {
+    "id": "synth-student-237",
+    "name": "Ananya Banerjee",
+    "email": "ananya.banerjee.237@example.test",
+    "department": "Business Administration",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-BU-237"
+  },
+  {
+    "id": "synth-student-238",
+    "name": "Kabir Kapoor",
+    "email": "kabir.kapoor.238@example.test",
+    "department": "Design & Media Arts",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-DE-238"
+  },
+  {
+    "id": "synth-student-239",
+    "name": "Ishita Mittal",
+    "email": "ishita.mittal.239@example.test",
+    "department": "Civil & Environmental Engineering",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-CI-239"
+  },
+  {
+    "id": "synth-student-240",
+    "name": "Tanmay Nambiar",
+    "email": "tanmay.nambiar.240@example.test",
+    "department": "Computer Science & Engineering",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-CO-240"
+  },
+  {
+    "id": "synth-student-241",
+    "name": "Bhavya Kulkarni",
+    "email": "bhavya.kulkarni.241@example.test",
+    "department": "Information Science & Engineering",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-IN-241"
+  },
+  {
+    "id": "synth-student-242",
+    "name": "Aadhya Choudhury",
+    "email": "aadhya.choudhury.242@example.test",
+    "department": "Electronics & Communication Engineering",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-EL-242"
+  },
+  {
+    "id": "synth-student-243",
+    "name": "Myra Kaur",
+    "email": "myra.kaur.243@example.test",
+    "department": "Artificial Intelligence & Machine Learning",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-AR-243"
+  },
+  {
+    "id": "synth-student-244",
+    "name": "Pranav Srivastava",
+    "email": "pranav.srivastava.244@example.test",
+    "department": "Data Science & Analytics",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-DA-244"
+  },
+  {
+    "id": "synth-student-245",
+    "name": "Garima D'Souza",
+    "email": "garima.dsouza.245@example.test",
+    "department": "Mechanical Engineering",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-ME-245"
+  },
+  {
+    "id": "synth-student-246",
+    "name": "Tushar Iyer",
+    "email": "tushar.iyer.246@example.test",
+    "department": "Biotechnology",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-BI-246"
+  },
+  {
+    "id": "synth-student-247",
+    "name": "Diya Hegde",
+    "email": "diya.hegde.247@example.test",
+    "department": "Business Administration",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-BU-247"
+  },
+  {
+    "id": "synth-student-248",
+    "name": "Arjun Sethi",
+    "email": "arjun.sethi.248@example.test",
+    "department": "Design & Media Arts",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-DE-248"
+  },
+  {
+    "id": "synth-student-249",
+    "name": "Kavya Tiwari",
+    "email": "kavya.tiwari.249@example.test",
+    "department": "Civil & Environmental Engineering",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-CI-249"
+  },
+  {
+    "id": "synth-student-250",
+    "name": "Aryan Roy",
+    "email": "aryan.roy.250@example.test",
+    "department": "Computer Science & Engineering",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-CO-250"
+  },
+  {
+    "id": "synth-student-251",
+    "name": "Swati Reddy",
+    "email": "swati.reddy.251@example.test",
+    "department": "Information Science & Engineering",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-IN-251"
+  },
+  {
+    "id": "synth-student-252",
+    "name": "Reyansh Bhatia",
+    "email": "reyansh.bhatia.252@example.test",
+    "department": "Electronics & Communication Engineering",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-EL-252"
+  },
+  {
+    "id": "synth-student-253",
+    "name": "Prisha Goel",
+    "email": "prisha.goel.253@example.test",
+    "department": "Artificial Intelligence & Machine Learning",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-AR-253"
+  },
+  {
+    "id": "synth-student-254",
+    "name": "Varun Tripathi",
+    "email": "varun.tripathi.254@example.test",
+    "department": "Data Science & Analytics",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-DA-254"
+  },
+  {
+    "id": "synth-student-255",
+    "name": "Muskan Bose",
+    "email": "muskan.bose.255@example.test",
+    "department": "Mechanical Engineering",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-ME-255"
+  },
+  {
+    "id": "synth-student-256",
+    "name": "Gaurav Verma",
+    "email": "gaurav.verma.256@example.test",
+    "department": "Biotechnology",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-BI-256"
+  },
+  {
+    "id": "synth-student-257",
+    "name": "Asha Mukherjee",
+    "email": "asha.mukherjee.257@example.test",
+    "department": "Business Administration",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-BU-257"
+  },
+  {
+    "id": "synth-student-258",
+    "name": "Vikram Garg",
+    "email": "vikram.garg.258@example.test",
+    "department": "Design & Media Arts",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-DE-258"
+  },
+  {
+    "id": "synth-student-259",
+    "name": "Pooja Kurian",
+    "email": "pooja.kurian.259@example.test",
+    "department": "Civil & Environmental Engineering",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-CI-259"
+  },
+  {
+    "id": "synth-student-260",
+    "name": "Shaurya Sharma",
+    "email": "shaurya.sharma.260@example.test",
+    "department": "Computer Science & Engineering",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-CO-260"
+  },
+  {
+    "id": "synth-student-261",
+    "name": "Divya Sen",
+    "email": "divya.sen.261@example.test",
+    "department": "Information Science & Engineering",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-IN-261"
+  },
+  {
+    "id": "synth-student-262",
+    "name": "Advik Khanna",
+    "email": "advik.khanna.262@example.test",
+    "department": "Electronics & Communication Engineering",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-EL-262"
+  },
+  {
+    "id": "synth-student-263",
+    "name": "Anvi Mishra",
+    "email": "anvi.mishra.263@example.test",
+    "department": "Artificial Intelligence & Machine Learning",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-AR-263"
+  },
+  {
+    "id": "synth-student-264",
+    "name": "Tejas Fernandes",
+    "email": "tejas.fernandes.264@example.test",
+    "department": "Data Science & Analytics",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-DA-264"
+  },
+  {
+    "id": "synth-student-265",
+    "name": "Tanya Gupta",
+    "email": "tanya.gupta.265@example.test",
+    "department": "Mechanical Engineering",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-ME-265"
+  },
+  {
+    "id": "synth-student-266",
+    "name": "Akash Deshmukh",
+    "email": "akash.deshmukh.266@example.test",
+    "department": "Biotechnology",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-BI-266"
+  },
+  {
+    "id": "synth-student-267",
+    "name": "Sunita Agarwal",
+    "email": "sunita.agarwal.267@example.test",
+    "department": "Business Administration",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-BU-267"
+  },
+  {
+    "id": "synth-student-268",
+    "name": "Siddharth Shukla",
+    "email": "siddharth.shukla.268@example.test",
+    "department": "Design & Media Arts",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-DE-268"
+  },
+  {
+    "id": "synth-student-269",
+    "name": "Riya Das",
+    "email": "riya.das.269@example.test",
+    "department": "Civil & Environmental Engineering",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-CI-269"
+  },
+  {
+    "id": "synth-student-270",
+    "name": "Dev Malhotra",
+    "email": "dev.malhotra.270@example.test",
+    "department": "Computer Science & Engineering",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-CO-270"
+  },
+  {
+    "id": "synth-student-271",
+    "name": "Aditi Chatterjee",
+    "email": "aditi.chatterjee.271@example.test",
+    "department": "Information Science & Engineering",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-IN-271"
+  },
+  {
+    "id": "synth-student-272",
+    "name": "Vivaan Bansal",
+    "email": "vivaan.bansal.272@example.test",
+    "department": "Electronics & Communication Engineering",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-EL-272"
+  },
+  {
+    "id": "synth-student-273",
+    "name": "Saanvi Pillai",
+    "email": "saanvi.pillai.273@example.test",
+    "department": "Artificial Intelligence & Machine Learning",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-AR-273"
+  },
+  {
+    "id": "synth-student-274",
+    "name": "Yash Chakraborty",
+    "email": "yash.chakraborty.274@example.test",
+    "department": "Data Science & Analytics",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-DA-274"
+  },
+  {
+    "id": "synth-student-275",
+    "name": "Kritika Joshi",
+    "email": "kritika.joshi.275@example.test",
+    "department": "Mechanical Engineering",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-ME-275"
+  },
+  {
+    "id": "synth-student-276",
+    "name": "Chirag Singh",
+    "email": "chirag.singh.276@example.test",
+    "department": "Biotechnology",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-BI-276"
+  },
+  {
+    "id": "synth-student-277",
+    "name": "Pallavi Saxena",
+    "email": "pallavi.saxena.277@example.test",
+    "department": "Business Administration",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-BU-277"
+  },
+  {
+    "id": "synth-student-278",
+    "name": "Rohan Thomas",
+    "email": "rohan.thomas.278@example.test",
+    "department": "Design & Media Arts",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-DE-278"
+  },
+  {
+    "id": "synth-student-279",
+    "name": "Meera Patel",
+    "email": "meera.patel.279@example.test",
+    "department": "Civil & Environmental Engineering",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-CI-279"
+  },
+  {
+    "id": "synth-student-280",
+    "name": "Nikhil Rao",
+    "email": "nikhil.rao.280@example.test",
+    "department": "Computer Science & Engineering",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-CO-280"
+  },
+  {
+    "id": "synth-student-281",
+    "name": "Shreya Arora",
+    "email": "shreya.arora.281@example.test",
+    "department": "Information Science & Engineering",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-IN-281"
+  },
+  {
+    "id": "synth-student-282",
+    "name": "Harsh Pandey",
+    "email": "harsh.pandey.282@example.test",
+    "department": "Electronics & Communication Engineering",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-EL-282"
+  },
+  {
+    "id": "synth-student-283",
+    "name": "Fatima Ghosh",
+    "email": "fatima.ghosh.283@example.test",
+    "department": "Artificial Intelligence & Machine Learning",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-AR-283"
+  },
+  {
+    "id": "synth-student-284",
+    "name": "Dhruv Nair",
+    "email": "dhruv.nair.284@example.test",
+    "department": "Data Science & Analytics",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-DA-284"
+  },
+  {
+    "id": "synth-student-285",
+    "name": "Simran Menon",
+    "email": "simran.menon.285@example.test",
+    "department": "Mechanical Engineering",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-ME-285"
+  },
+  {
+    "id": "synth-student-286",
+    "name": "Kunal Jain",
+    "email": "kunal.jain.286@example.test",
+    "department": "Biotechnology",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-BI-286"
+  },
+  {
+    "id": "synth-student-287",
+    "name": "Nisha Dubey",
+    "email": "nisha.dubey.287@example.test",
+    "department": "Business Administration",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-BU-287"
+  },
+  {
+    "id": "synth-student-288",
+    "name": "Aarav Dutta",
+    "email": "aarav.dutta.288@example.test",
+    "department": "Design & Media Arts",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-DE-288"
+  },
+  {
+    "id": "synth-student-289",
+    "name": "Sneha Banerjee",
+    "email": "sneha.banerjee.289@example.test",
+    "department": "Civil & Environmental Engineering",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-CI-289"
+  },
+  {
+    "id": "synth-student-290",
+    "name": "Rahul Kapoor",
+    "email": "rahul.kapoor.290@example.test",
+    "department": "Computer Science & Engineering",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-CO-290"
+  },
+  {
+    "id": "synth-student-291",
+    "name": "Tanvi Mittal",
+    "email": "tanvi.mittal.291@example.test",
+    "department": "Information Science & Engineering",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-IN-291"
+  },
+  {
+    "id": "synth-student-292",
+    "name": "Karthik Nambiar",
+    "email": "karthik.nambiar.292@example.test",
+    "department": "Electronics & Communication Engineering",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-EL-292"
+  },
+  {
+    "id": "synth-student-293",
+    "name": "Kiara Kulkarni",
+    "email": "kiara.kulkarni.293@example.test",
+    "department": "Artificial Intelligence & Machine Learning",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-AR-293"
+  },
+  {
+    "id": "synth-student-294",
+    "name": "Ayaan Choudhury",
+    "email": "ayaan.choudhury.294@example.test",
+    "department": "Data Science & Analytics",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-DA-294"
+  },
+  {
+    "id": "synth-student-295",
+    "name": "Ira Kaur",
+    "email": "ira.kaur.295@example.test",
+    "department": "Mechanical Engineering",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-ME-295"
+  },
+  {
+    "id": "synth-student-296",
+    "name": "Manan Srivastava",
+    "email": "manan.srivastava.296@example.test",
+    "department": "Biotechnology",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-BI-296"
+  },
+  {
+    "id": "synth-student-297",
+    "name": "Ritu D'Souza",
+    "email": "ritu.dsouza.297@example.test",
+    "department": "Business Administration",
+    "batch": "2024-2028",
+    "rollNumber": "SKY-24-BU-297"
+  },
+  {
+    "id": "synth-student-298",
+    "name": "Deepak Iyer",
+    "email": "deepak.iyer.298@example.test",
+    "department": "Design & Media Arts",
+    "batch": "2025-2029",
+    "rollNumber": "SKY-25-DE-298"
+  },
+  {
+    "id": "synth-student-299",
+    "name": "Priya Hegde",
+    "email": "priya.hegde.299@example.test",
+    "department": "Civil & Environmental Engineering",
+    "batch": "2026-2030",
+    "rollNumber": "SKY-26-CI-299"
+  },
+  {
+    "id": "synth-student-300",
+    "name": "Aditya Sethi",
+    "email": "aditya.sethi.300@example.test",
+    "department": "Computer Science & Engineering",
+    "batch": "2023-2027",
+    "rollNumber": "SKY-23-CO-300"
+  }
+]

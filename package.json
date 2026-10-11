@@ -17,6 +17,7 @@
     "db:status": "prisma migrate status",
     "db:check": "tsx database/scripts/check-connection.ts",
     "db:seed": "tsx database/prisma/seed.ts",
+    "db:seed:synthetic": "tsx database/prisma/seed-synthetic.ts",
     "dev:frontend": "npm --prefix frontend run dev",
     "build:frontend": "npm --prefix frontend run build"
   },
